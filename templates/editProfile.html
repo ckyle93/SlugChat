@@ -223,7 +223,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                <h1>
-                  Profile
+                  Edit Profile
                </h1>
             </section>
             <!-- Main content -->
@@ -244,7 +244,7 @@
                               <div class="box box-solid">
                                 <div class="box-header with-border">
                                   <h3 class="box-title">{{userinfo.username}}</h3>
-                                  <a href="#" class="btn btn-sm btn-default btn-flat pull-right">Edit</a>
+
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -275,61 +275,81 @@
 
                   </div>
                   </div>
-
-                  <div class="row"  >
-                    <!-- DISPLAY CLASSES -->
-                    <div class="col-sm-12 col-md-6">
-                              <div class="box ">
-                                <div class="box-header with-border">
-                                  <h3 class="box-title">Classes</h3>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                  <div class="col-sm-12">
-                                  <div ng-repeat="classroom in classrooms" class="small-box bg-green">
-                                  <div class="inner">
-                                    <h3>{{classroom.name}}</h3>
-                                    <p>{{classroom.description}}</p>
-                                  </div>
-
-                                  <a href="#" class="small-box-footer">
-                                    Go to Class <i class="fa fa-arrow-circle-right"></i>
-                                  </a>
-                                </div>
-
-
-
-                                </div>
-                              </div>
-                                <!-- /.box-body -->
-                              </div>
-                              <!-- /.box -->
+                  <div class="row">
+                    <div class="col-sm-12">
+                    <div class="box box-primary">
+                     <div class="box-header with-border">
+                       <h3 class="box-title">Edit Profile</h3>
+                     </div>
+                     <!-- /.box-header -->
+                     <!-- form start -->
+                     <form role="form">
+                       <div class="box-body">
+                        <div class="col-sm-6">
+                         <div class="form-group">
+                           <label for="userNameEdit">Name</label> <small>(Can be real or a nickname.)</small>
+                           <input type="text" class="form-control" id="userNameEdit" ng-model="userinfo.username">
+                         </div>
+                       </div>
+                       <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="userTitleEdit">Occupation </label> <small>(What keeps you busy?)</small>
+                          <input type="text" class="form-control" id="userTitleEdit" ng-model="userinfo.title">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                       <div class="form-group">
+                         <label for="userContactEdit">Contact</label> <small>(email,phone etc...)</small>
+                         <input type="text" class="form-control" id="userContactEdit" ng-model="userinfo.contactinfo">
+                       </div>
+                     </div>
+                     <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="userBioEdit">Bio:</label> <small>(Tell us about yourself.)</small>
+                        <textarea class="form-control" id="userBioEdit" rows="3" ng-model="userinfo.bio" ></textarea>
+                      </div>
                     </div>
-                    <!--CLASSMATES-->
-                    <div class="col-sm-12 col-md-6">
-                      <div class="box">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Classmates</h3>
+                       <div class="col-sm-3">
+                         <div class="form-group">
+                           <label for="userProfileEdit">Profile Picture</label>
+                           <input type="file" id="userProfileEdit">
+                           <p class="help-block">Make sure you give us one of your good side.</p>
+                         </div>
+                       </div>
+                         <div class="col-sm-3">
+                         <div class="checkbox">
+                           <label>
+                             <input type="checkbox"> <strong>Show Classes</strong> <small>(Other members can see what classes you are enrolled in.)</small>
+                           </label>
+                         </div>
+                         <div class="checkbox">
+                           <label>
+                             <input type="checkbox"> <strong>Show Classmates</strong> <small>(Other members can see who your classmates are.)</small>
+                           </label>
+                         </div>
+                       </div>
+                       <div class="col-sm-3">
+                       </div>
+                     </div>
+                       <!-- /.box-body -->
+
+                       <div class="box-footer">
+                         <div class="row">
+                           <div class="col-sm-3">
+                             <button type="submit" class="btn btn-primary">Update</button>
+                             <button type="submit" class="btn">Cancel</button>
+                           </div>
+                           <div class="col-sm-6"></div>
+                           <div class="col-sm-3">
+                             <button type="submit" class="btn">Delete Account</button>
+                           </div>
+                         </div>
+                       </div>
+                     </form>
+                    </div>
                   </div>
-                  <!-- /.box-header -->
-                  <div class="box-body no-padding">
-                    <ul class="users-list clearfix">
-                      <li ng-repeat="classmate in classmates">
-                        <img class="profile-user-img img-responsive img-circle" ng-src="{{classmate.profile}}" alt="User Image">
-                        <a class="users-list-name" href="#">{{classmate.name}}</a>
-                      </li>
-                    </ul>
-                    <!-- /.users-list -->
-                  </div>
-                  <!-- /.box-body -->
-                  <div class="box-footer text-center">
-                  </div>
-                  <!-- /.box-footer -->
                 </div>
-                                <!-- /.box-body -->
-                    </div>
-                              <!-- /.box -->
-                    </div>
+
                   </div>
 
                </div>
