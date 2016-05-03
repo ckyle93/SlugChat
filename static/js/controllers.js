@@ -1,6 +1,6 @@
 var slugChatApp = angular.module('slugChatApp', []);
 
-slugChatApp.controller('messagesCtrl', function ($scope) {
+slugChatApp.controller('testDataCtrl', function ($scope) {
   $scope.messages = [
     {'name': 'Your Boss',
      'subject': "You're fired",
@@ -23,20 +23,30 @@ slugChatApp.controller('messagesCtrl', function ($scope) {
         'time': "7 years old",
          'profile': "../static/AdminLTE/dist/img/user2-160x160.jpg",},
   ];
-});
 
-slugChatApp.controller('classroomsCtrl', function ($scope) {
   $scope.classrooms = [
-    {'name': "CMPS 115"},
-    {'name': "CMPE 110"},
-    {'name': "CMPS 109"}
+    {'name': "CMPS 115", 'description':"Software Engineering"},
+    {'name': "CMPE 110", 'description':"Computer Architecture"},
+    {'name': "CMPS 109", 'description':"Advanced Programming"}
   ];
-});
 
-slugChatApp.controller('profileCtrl', function ($scope) {
+  $scope.classmates = [
+    {'name': "Chris Kyle", 'profile':"../static/img/profile-pic.png"},
+    {'name': "Aramis Marden", 'profile':"../static/img/profile-pic.png"},
+    {'name': "Joseph Faulkner", 'profile':"../static/img/profile-pic.png"},
+    {'name': "Christopher Ketchum", 'profile':"../static/img/profile-pic.png"},
+    {'name': 'Snow White', 'profile':"../static/img/profile-pic.png"},
+    {'name': "Alex Pang", 'profile':"../static/img/profile-pic.png"}
+  ];
+
   $scope.userinfo =
     {'username': "Martin Corro",
     'profile': "../static/images/MarvinCorroProfileIm.jpg",
     'bio': "I like looting, shooting, bootin and computing.",
-    'title': "Student",};
+    'title': "Student",
+    'contactinfo' : "C:(555)-555-5555",
+  };
+
+
+
 });
