@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<!--
+   This is a starter template page. Use this page to start your new project from
+   scratch. This page gets rid of all links and provides the needed markup only.
+   -->
+<html ng-app="slugChatApp"  ng-controller="testDataCtrl">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Profile Manage</title>
+      <!-- Tell the browser to be responsive to screen width -->
+      <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+      <!-- Bootstrap 3.3.5 -->
+      <link rel="stylesheet" href="../static/AdminLTE/bootstrap/css/bootstrap.min.css">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+      <!-- Ionicons -->
+      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- fullCalendar 2.2.5-->
+     <link rel="stylesheet" href="../static/AdminLTE/plugins/fullcalendar/fullcalendar.min.css">
+     <link rel="stylesheet" href="../static/AdminLTE/plugins/fullcalendar/fullcalendar.print.css" media="print">
+
+       <!-- Theme style -->
+      <link rel="stylesheet" href="../static/AdminLTE/dist/css/AdminLTE.min.css">
+      <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+      <link rel="stylesheet" href="../static/AdminLTE/dist/css/skins/_all-skins.min.css">
+      <!-- iCheck -->
+      <link rel="stylesheet" href="../static/AdminLTE/plugins/iCheck/flat/blue.css">
+      <!-- bootstrap wysihtml5 - text editor -->
+      <link rel="stylesheet" href="../static/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+      <link rel="stylesheet" href="stylesForRestOfSite.css">
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <!--
+      BODY TAG OPTIONS:
+      =================
+      Apply one or more of the following classes to get the
+      desired effect
+      |---------------------------------------------------------|
+      | SKINS         | skin-blue                               |
+      |               | skin-black                              |
+      |               | skin-purple                             |
+      |               | skin-yellow                             |
+      |               | skin-red                                |
+      |               | skin-green                              |
+      |---------------------------------------------------------|
+      |LAYOUT OPTIONS | fixed                                   |
+      |               | layout-boxed                            |
+      |               | layout-top-nav                          |
+      |               | sidebar-collapse                        |
+      |               | sidebar-mini                            |
+      |---------------------------------------------------------|
+      -->
+   <body class="hold-transition skin-blue sidebar-mini">
+      <div class="wrapper">
+         <!-- Main Header -->
+         <header class="main-header">
+            <!-- Logo -->
+            <a href="index2.html" class="logo">
+               <!-- mini logo for sidebar mini 50x50 pixels -->
+               <span class="logo-mini"><b>S</b>C</span>
+               <!-- logo for regular state and mobile devices -->
+               <span class="logo-lg"><b>Slug</b>Chat</span>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+               <!-- Sidebar toggle button-->
+               <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+               <span class="sr-only">Toggle navigation</span>
+               </a>
+               <!-- Navbar Right Menu -->
+               <div class="navbar-custom-menu">
+                  <ul class="nav navbar-nav">
+                     <!-- Classes-->
+                     <li class="dropdown notifications-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-users "></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                           <li class="header">Your classes:</li>
+                           <li>
+                              <!-- Inner Menu: contains the notifications -->
+                              <ul class="menu">
+                                 <li ng-repeat="classroom in classrooms">
+                                   <a href="#">
+                                   <i class="fa fa-circle text-aqua"></i> {{classroom.name}}
+                                   </a>
+                                 </li>
+                                 <!-- end notification -->
+                              </ul>
+                           </li>
+
+                           <li class="footer"><a href="#"> <i class=" fa fa-plus"></i>Add Class</a></li>
+                        </ul>
+                     </li>
+                    <!-- Messages -->
+                     <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa fa-comments-o "></i>
+                        <span class="label label-success">{{messages.length}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                           <li class="header">Recent Messages</li>
+                           <li>
+                              <!-- inner menu: contains the messages -->
+                              <ul class="menu" >
+                                 <li>
+                                    <!-- start message -->
+                                    <a href="#">
+                                       <div class="pull-left">
+                                          <!-- User Image -->
+                                          <img src="../static/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                       </div>
+                                       <!-- Message title and timestamp -->
+                                       <h4>
+                                          Support Team
+                                          <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                       </h4>
+                                       <!-- The message -->
+                                       <p>Why not buy a new awesome theme?</p>
+                                    </a>
+                                 </li>
+                                 <li ng-repeat="message in messages">
+                                   <a href ="#">
+                                     <div class="pull-left">
+                                        <!-- User Image -->
+                                        <img ng-src="{{message.profile}}" alt="{{message.name}}" class="img-circle img-responsive" >
+                                     </div>
+                                     <!-- Message title and timestamp -->
+                                     <h4>
+                                        {{message.name}}
+                                        <small><i class="fa fa-clock-o"></i>{{message.time}}</small>
+                                     </h4>
+                                     <!-- The subject -->
+                                     <p>{{message.subject}}</p>
+                                   </a>
+                                 </li>
+                                 <!-- end message -->
+                              </ul>
+                              <!-- /.menu -->
+                           </li>
+                           <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                     </li>
+                     <!-- /.messages-menu -->
+
+                     <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                           <!-- The user image in the navbar-->
+                           <img ng-src="{{userinfo.profile}}" class="user-image img-responsive" alt="{{userinfo.username}}">
+                           <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                           <span class="hidden-xs">{{userinfo.name}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                           <!-- The user image in the menu -->
+                           <li class="user-header">
+                              <img ng-src="{{userinfo.profile}}" class="img-circle img-responsive" alt="User Image">
+                              <p>
+                                 {{userinfo.username}} - {{userinfo.title}}
+                              </p>
+                           </li>
+                           <!-- Menu Body -->
+                           <!-- Menu Footer-->
+                           <li class="user-footer">
+                              <div class="pull-left">
+                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
+                              </div>
+                              <div class="pull-right">
+                                 <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+            </nav>
+         </header>
+         <!-- Left side column. contains the logo and sidebar -->
+
+         <div class="container">
+         <!-- paste content here-->
+         <aside class="main-sidebar">
+
+
+          <section class="sidebar">
+
+          <ul class="sidebar-menu">
+            <li class="header text-center">DASHBOARD</li>
+            <li class="treeview">
+              <a href="profile.html">
+                <i class="fa fa-th"></i>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="profileStats.html">
+                <i class="fa fa-dashboard"></i>
+                <span>Manage Classes</span>
+              </a>
+            </li>
+            <li class=" active treeview">
+              <a href="profileMessages.html">
+                <i class="fa fa-envelope"></i>
+                <span>Messages</span>
+              </a>
+            </li>
+            <!--<li>
+              <a href="pages/mailbox/mailbox.html">
+                <i class="fa fa-envelope"></i> <span>Other2</span>
+              </a>
+            </li>
+            <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Other3</span></a></li>-->
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+         </div>
+         <!-- Content Wrapper. Contains page content -->
+         <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+               <h1>
+                  Messages
+               </h1>
+            </section>
+            <!-- Main content -->
+
+            <section class="content">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <a href="mailbox.html" class="btn btn-primary btn-block margin-bottom">Back to Inbox</a>
+                          <div class="box box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title">Folders</h3>
+                              <div class="box-tools">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                              </div>
+                            </div>
+                            <div class="box-body no-padding">
+                              <ul class="nav nav-pills nav-stacked">
+                                <li><a href="mailbox.html"><i class="fa fa-inbox"></i> Inbox <span class="label label-primary pull-right">12</span></a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                                <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
+                                <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a></li>
+                                <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                              </ul>
+                            </div><!-- /.box-body -->
+                          </div><!-- /. box -->
+                          <div class="box box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title">Labels</h3>
+                              <div class="box-tools">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                              </div>
+                            </div><!-- /.box-header -->
+                            <div class="box-body no-padding">
+                              <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#"><i class="fa fa-circle-o text-red"></i> Important</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
+                              </ul>
+                            </div><!-- /.box-body -->
+                          </div><!-- /.box -->
+                        </div><!-- /.col -->
+                        <div class="col-md-9">
+                          <div class="box box-primary">
+                            <div class="box-header with-border">
+                              <h3 class="box-title">Compose New Message</h3>
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                              <div class="form-group">
+                                <input class="form-control" placeholder="To:">
+                              </div>
+                              <div class="form-group">
+                                <input class="form-control" placeholder="Subject:">
+                              </div>
+                              <div class="form-group">
+                                <ul class="wysihtml5-toolbar"><li class="dropdown">
+              <a class="btn btn-default dropdown-toggle " data-toggle="dropdown">
+
+                  <span class="glyphicon glyphicon-font"></span>
+
+                <span class="current-font">Normal text</span>
+                <b class="caret"></b>
+              </a>
+            </li>
+
+           <li>
+              <div class="btn-group">
+                <a class="btn  btn-default" data-wysihtml5-command="bold" title="CTRL+B" tabindex="-1" href="javascript:;" unselectable="on">Bold</a>
+                <a class="btn  btn-default" data-wysihtml5-command="italic" title="CTRL+I" tabindex="-1" href="javascript:;" unselectable="on">Italic</a>
+                <a class="btn  btn-default" data-wysihtml5-command="underline" title="CTRL+U" tabindex="-1" href="javascript:;" unselectable="on">Underline</a>
+                <a class="btn  btn-default" data-wysihtml5-command="small" title="CTRL+S" tabindex="-1" href="javascript:;" unselectable="on">Small</a>
+
+              </div>
+            </li>
+
+            <li>
+              <a class="btn  btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote" data-wysihtml5-display-format-name="false" tabindex="-1" href="javascript:;" unselectable="on">
+
+                  <span class="glyphicon glyphicon-quote"></span>
+
+              </a>
+            </li>
+            <li>
+              <div class="btn-group">
+                <a class="btn  btn-default" data-wysihtml5-command="insertUnorderedList" title="Unordered list" tabindex="-1" href="javascript:;" unselectable="on">
+
+                  <span class="glyphicon glyphicon-list"></span>
+
+                </a>
+                <a class="btn  btn-default" data-wysihtml5-command="insertOrderedList" title="Ordered list" tabindex="-1" href="javascript:;" unselectable="on">
+
+                  <span class="glyphicon glyphicon-th-list"></span>
+
+                </a>
+                <a class="btn  btn-default" data-wysihtml5-command="Outdent" title="Outdent" tabindex="-1" href="javascript:;" unselectable="on">
+
+                  <span class="glyphicon glyphicon-indent-right"></span>
+
+                </a>
+                <a class="btn  btn-default" data-wysihtml5-command="Indent" title="Indent" tabindex="-1" href="javascript:;" unselectable="on">
+
+                  <span class="glyphicon glyphicon-indent-left"></span>
+
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="bootstrap-wysihtml5-insert-link-modal modal fade" data-wysihtml5-dialog="createLink">
+                <div class="modal-dialog ">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <a class="close" data-dismiss="modal">×</a>
+                      <h3>Insert link</h3>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <input value="http://" class="bootstrap-wysihtml5-insert-link-url form-control" data-wysihtml5-dialog-field="href">
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" class="bootstrap-wysihtml5-insert-link-target" checked="">Open link in new window
+                        </label>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <a class="btn btn-default" data-dismiss="modal" data-wysihtml5-dialog-action="cancel" href="#">Cancel</a>
+                      <a href="#" class="btn btn-primary" data-dismiss="modal" data-wysihtml5-dialog-action="save">Insert link</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="btn  btn-default" data-wysihtml5-command="createLink" title="Insert link" tabindex="-1" href="javascript:;" unselectable="on">
+
+                  <span class="glyphicon glyphicon-share"></span>
+
+              </a>
+            </li>
+            <li>
+              <div class="bootstrap-wysihtml5-insert-image-modal modal fade" data-wysihtml5-dialog="insertImage">
+                <div class="modal-dialog ">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <a class="close" data-dismiss="modal">×</a>
+                      <h3>Insert image</h3>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <input value="http://" class="bootstrap-wysihtml5-insert-image-url form-control" data-wysihtml5-dialog-field="src">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <a class="btn btn-default" data-dismiss="modal" data-wysihtml5-dialog-action="cancel" href="#">Cancel</a>
+                      <a class="btn btn-primary" data-dismiss="modal" data-wysihtml5-dialog-action="save" href="#">Insert image</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="btn  btn-default" data-wysihtml5-command="insertImage" title="Insert image" tabindex="-1" href="javascript:;" unselectable="on">
+
+                  <span class="glyphicon glyphicon-picture"></span>
+
+              </a>
+            </li>
+            </ul><textarea id="compose-textarea" class="form-control" style="height: 300px; display: none;">                      &lt;h1&gt;&lt;u&gt;Heading Of Message&lt;/u&gt;&lt;/h1&gt;
+                                  &lt;h4&gt;Subheading&lt;/h4&gt;
+                                  &lt;p&gt;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee&lt;/p&gt;
+                                  &lt;ul&gt;
+                                    &lt;li&gt;List item one&lt;/li&gt;
+                                    &lt;li&gt;List item two&lt;/li&gt;
+                                    &lt;li&gt;List item three&lt;/li&gt;
+                                    &lt;li&gt;List item four&lt;/li&gt;
+                                  &lt;/ul&gt;
+                                  &lt;p&gt;Thank you,&lt;/p&gt;
+                                  &lt;p&gt;John Doe&lt;/p&gt;
+                                </textarea><iframe class="wysihtml5-sandbox" security="restricted" allowtransparency="true" frameborder="0" width="0" height="0" marginwidth="0" marginheight="0" style="display: block; border-collapse: separate; border: 1px solid rgb(210, 214, 222); clear: none; float: none; margin: 0px; outline: rgb(85, 85, 85) none 0px; outline-offset: 0px; padding: 6px 12px; position: static; top: auto; left: auto; right: auto; bottom: auto; z-index: auto; vertical-align: baseline; text-align: start; box-sizing: border-box; box-shadow: none; border-radius: 0px; width: 100%; height: 300px; background-color: rgb(255, 255, 255);"></iframe>
+                              </div>
+                              <div class="form-group">
+                                <div class="btn btn-default btn-file">
+                                  <i class="fa fa-paperclip"></i> Attachment
+                                  <input type="file" name="attachment">
+                                </div>
+                                <p class="help-block">Max. 32MB</p>
+                              </div>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                              <div class="pull-right">
+                                <button class="btn btn-default"><i class="fa fa-pencil"></i> Draft</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+                              </div>
+                              <button class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
+                            </div><!-- /.box-footer -->
+                          </div><!-- /. box -->
+                        </div><!-- /.col -->
+                      </div><!-- /.row -->
+                    </section>
+            <!-- /.content -->
+         </div>
+         <!-- /.content-wrapper -->
+         <!-- Main Footer -->
+         <footer class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+               A Slug Chat Product~
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2015 <a href="#">SlugChat</a>.</strong> All rights reserved.
+         </footer>
+         <!-- Control Sidebar -->
+
+         <!-- /.control-sidebar -->
+         <!-- Add the sidebar's background. This div must be placed
+            immediately after the control sidebar -->
+         <div class="control-sidebar-bg"></div>
+      </div>
+      <!-- ./wrapper -->
+      <!-- REQUIRED JS SCRIPTS -->
+
+          <!-- jQuery 2.1.4 -->
+          <script src="../static/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+          <!-- Bootstrap 3.3.5 -->
+          <script src="../static/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+          <!-- Slimscroll -->
+          <script src="../static/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+          <!-- FastClick -->
+          <script src="../static/AdminLTE/plugins/fastclick/fastclick.min.js"></script>
+          <!-- AdminLTE App -->
+
+
+          <script src="../static/AdminLTE/dist/js/app.min.js"></script>
+          <!-- AdminLTE for demo purposes -->
+          <script src="../static/AdminLTE/dist/js/demo.js"></script>
+          <!-- iCheck -->
+          <script src="../static/AdminLTE/plugins/iCheck/icheck.min.js"></script>
+          <!-- Bootstrap WYSIHTML5 -->
+          <script src="../static/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+          <!-- Page Script -->
+          <script>
+            $(function () {
+              //Add text editor
+              $("#compose-textarea").wysihtml5();
+            });
+          </script>
+
+      <script src="profileScripts.js"></script>
+      <script src="../static/js/angular.min.js"></script>
+      <script src="../static/js/controllers.js"></script>
+      <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+   </body>
+</html>
