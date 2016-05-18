@@ -19,9 +19,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
+#C:\Users\Joseph\Desktop\SlugChat\login\views.py
+              #authentication\templates\loginTemplate\home_test.html
+    #url(r'^', authentication.views.test, name='test_login'),
     #url(r'^login/', include('login.urls')),
+    url(r'^login/', include('authentication.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^$', include('landingpage.urls')),
 ]
 
 if settings.DEBUG:

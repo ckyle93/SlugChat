@@ -39,6 +39,7 @@ EMAIL_USE_TLS = True
 
 INSTALLED_APPS = [
     'login.apps.LoginConfig',
+    'landingpage',
     'authentication',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,7 +68,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_VERIFICATION = "none" #"mandatory"
-LOGIN_REDIRECT_URL = "/admin"
+LOGIN_REDIRECT_URL = "/profile"
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -97,6 +98,11 @@ TEMPLATES = [
         },
     },
 ]
+
+
+TEMPLATE_DIRS = (
+    '/path/to/your/template/directory',
+)
 
 WSGI_APPLICATION = 'slugchat.wsgi.application'
 
