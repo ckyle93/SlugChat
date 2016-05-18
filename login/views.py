@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from login.models import User
 from login.forms import UserForm
@@ -57,3 +57,12 @@ def buildprofile(request):
         form = UserForm(instance=instance)
 
     return render(request, 'buildprofile.html', {'form': form})
+
+def test(request):
+    return render(request, 'loginTemplate/home.html',{})
+
+def testprofile(request):
+    return render(request, 'profileTemplates/viewMyProfile.html',{})
+
+def testprofileedit(request):
+    return render(request, 'profileTemplates/editProfile.html',{})
