@@ -8,6 +8,7 @@ import os
 
 from .forms import UserForm
 
+
 def index(request):
     try:
         with open('key_file.txt', 'r') as f:
@@ -15,9 +16,6 @@ def index(request):
     except IOError:
         GOOGLE_KEY = None
         print("key_file not found. \nMessage Ckyle for key_file.txt")
-    if(not User.objects.filter(email=request.session['email_address'],
-            completeProfile=True).exists()):
-        return HttpResponseRedirect('/login/buildprofile/')
     context = {'GOOGLE_KEY' : GOOGLE_KEY }
     return render(request, 'login/index.html', context)
 
@@ -26,21 +24,35 @@ def tokensignin(request):
     first_name = request.POST['first_name']
     last_name = request.POST['last_name']
     email_address = request.POST['email_address']
-
+    print("EMAIL ADDr ++++ = ", email_address)
     request.session['email_address'] = email_address
+    profile_pic = request.POST['profile_pic']
 
-    print(first_name, last_name, email_address)
+    print(first_name, last_name, email_address,profile-pic)
     # New user who has never signed in before
     if(not User.objects.filter(email=email_address).exists()):
         user_info = User(firstName=first_name,lastName=last_name,
-            email=email_address)
+            email=email_address, profile_pic=profile_pic)
         user_info.save()
+    return HttpResponseRedirect('ok')
 
 # See https://docs.djangoproject.com/en/1.9/topics/forms/
 # for an explanation of the following code.
 def buildprofile(request):
 # if this is a POST request we need to process the form data
+
+    # TODO: On first logging in, this will force a redirect back
+    # to login, because tokensignin does not set the session variable
+    # quickly enough. Maybe add a timer.
+    if 'email_address' not in request.session:
+        return HttpResponseRedirect('/login/')
     email_address = request.session['email_address']
+
+    # If this user's profile is complete, redirect to profile page
+    # TODO: move profile page out of login app
+    if (not request.GET.get('update', '') == 'true') and User.objects.filter(email=email_address, completeProfile=True).exists():
+        return HttpResponseRedirect('/login/profile/')
+
     instance = User.objects.get(email=email_address)
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -48,21 +60,29 @@ def buildprofile(request):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
+            instance.completeProfile = True
+            form.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/login/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = UserForm(instance=instance)
+    return render(request, 'login/buildprofile.html', {'form': form})
 
-    return render(request, 'buildprofile.html', {'form': form})
+def profile(request):
+    email_address = request.session['email_address']
+    instance = User.objects.get(email=email_address)
+
+    context = {'full_name' : instance.firstName + " " + instance.lastName,
+               'school'    : instance.school,
+               'studentID' : instance.studentID,
+               'email'     : instance.email,
+               'status'    : instance.status,
+               'profile_pic': instance.profile_pic
+               }
+
+    return render(request, 'login/profile.html', context)
 
 def test(request):
     return render(request, 'loginTemplate/home.html',{})
-
-def testprofile(request):
-    return render(request, 'profileTemplates/viewMyProfile.html',{})
-
-def testprofileedit(request):
-    return render(request, 'profileTemplates/editProfile.html',{})

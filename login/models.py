@@ -10,12 +10,12 @@ class User(models.Model):
                 (PROFESSOR, 'Professor'),
                 (STUDENT, 'Student'),
         )
-#        username = models.CharField(max_length=50)
         firstName = models.CharField(max_length=50)
         lastName = models.CharField(max_length=50)
         school = models.CharField(max_length=50)
         studentID = models.CharField(max_length=10)
         email = models.CharField(max_length=50, unique=True)
+        profile_pic = models.CharField(max_length=100)
         status = models.CharField(max_length=2, choices=statusChoices, default=STUDENT)
         completeProfile = models.BooleanField(default=False)
 
@@ -25,7 +25,6 @@ class User(models.Model):
 
         def __str__(self):
             return self.firstName
-
 
 #class Course(models.Model):
 #        # these field points to tuple in User DB
