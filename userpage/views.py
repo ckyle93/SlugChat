@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from home.models import User, Roster, Course
 from userpage.forms import UserForm, RosterForm, CourseForm
+from collections import defaultdict
 
 from slugchat.functions import logged_in
 
@@ -176,7 +177,7 @@ def deleteclass(request):
                   {'roster_form': roster_form})
 
 
-# Only students can enroll in a course.
+# Anyone can enroll in a course.
 def manage_classes(request):
 
     if not logged_in(request):
@@ -207,3 +208,27 @@ def manage_classes(request):
 
     return render(request, 'userpage/enroll.html',
                   {'roster_form': roster_form})
+
+
+def viewquizzes(request):
+    if not logged_in(request):
+        return HttpResponseRedirect('/')
+
+    email_address = request.session['email_address']
+
+    user = User.objects.get(email=email_address)
+    if user.get_status() is not 'Professor':
+        return HttpResponse(
+                'Sorry, only professors can view.', status=401)
+
+    quizzes = user.quiz_set.all().all()
+
+    # Make a dictionary of lists. The
+
+    quiz_text = []
+    quiz_choices = defaultdict(list)
+    for quiz in quizzes:
+        quiz_text.append(
+        choices = quiz.quizchoices_set.all().all()
+        for choice in choices:
+
