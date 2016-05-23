@@ -2,11 +2,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from home.models import User, Roster, Course
-from userpage.forms import UserForm, RosterForm, CourseForm
-from collections import defaultdict
+from django.shortcuts import get_object_or_404
+from home.models import User, Roster, Course, Quiz, QuizChoices
+from userpage.forms import UserForm, RosterForm, CourseForm, QuizForm
+from userpage.forms import QuizChoicesForm
 
-from slugchat.functions import logged_in
+from slugchat.functions import logged_in, QuizObj
 
 
 # This is the function that takes the info from google sign in, then adds the
@@ -223,12 +224,67 @@ def viewquizzes(request):
 
     quizzes = user.quiz_set.all().all()
 
-    # Make a dictionary of lists. The
-
-    quiz_text = []
-    quiz_choices = defaultdict(list)
+    quiz_list = []
     for quiz in quizzes:
-        quiz_text.append(
+        new_quiz = QuizObj()
+        new_quiz.question_text = quiz.question
+        new_quiz.id = quiz.id
         choices = quiz.quizchoices_set.all().all()
         for choice in choices:
+            new_quiz.choices.append(choice.choice)
+        quiz_list.append(new_quiz)
+    if request.method == 'POST':
+        quiz_id = request.POST['id']
+        Quiz.objects.get(id=quiz_id).delete()
+        return HttpResponseRedirect('/profile/viewquizzes')
+    else:
+        return render(request, 'userpage/viewquizzes.html',
+                      {'quiz_list': quiz_list})
 
+
+def makequizzes(request):
+    if not logged_in(request):
+        return HttpResponseRedirect('/')
+
+    email_address = request.session['email_address']
+
+    user = User.objects.get(email=email_address)
+    if user.get_status() is not 'Professor':
+        return HttpResponse(
+                'Sorry, only professors can view.', status=401)
+
+    # If the we are updating a quizz's choices, the urls is
+    # /profile/makequizzes/?quiz_id=pk, where pk is the primary key
+    # of the Quiz object we want to add choices to.
+    key = request.GET.get('quiz_id', '')
+    if key is not '':
+        quiz = get_object_or_404(Quiz, pk=key)
+        new_choice = QuizChoices(quiz=quiz)
+        previous_choices = quiz.quizchoices_set.all().all()
+        print(previous_choices)
+        if request.method == 'POST':
+            quizchoices_form = QuizChoicesForm(
+                    request.POST, instance=new_choice)
+            if quizchoices_form.is_valid():
+                quizchoices_form.save()
+            return HttpResponseRedirect(
+                    'profile/makequizzes/?quiz_id=' + str(quiz.id))
+        else:
+            quizchoices_form = QuizChoicesForm()
+
+        return render(request, 'userpage/addchoices.html',
+                      {'quizchoices_form': quizchoices_form,
+                       'previous_choices': previous_choices})
+
+    quiz = Quiz(professor=user)
+    if request.method == 'POST':
+        quiz_form = QuizForm(request.POST, instance=quiz)
+        if quiz_form.is_valid():
+            quiz_form.save()
+        return HttpResponseRedirect('/profile/makequizzes/?quiz_id=' +
+                                    str(quiz.id))
+    else:
+        quiz_form = QuizForm()
+
+    return render(request, 'userpage/makequizzes.html',
+                  {'quiz_form': quiz_form})

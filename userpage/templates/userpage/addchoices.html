@@ -1,0 +1,13 @@
+<a href="/profile">Done</a>
+<form method="post">
+    {% csrf_token %}
+    <br>
+    <b> Current Choices </b>
+    {% for choice in previous_choices %}
+    <ol> {{choice.choice}} </ol>
+    {% endfor %}
+    <b> Add a choice </b>
+    {{ quizchoices_form }}
+    <br>
+    <input type="submit" value="Add" />
+</form>

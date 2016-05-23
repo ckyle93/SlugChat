@@ -9,6 +9,7 @@
 <a href="/profile/addclass">Create a class</a>
 <a href="/profile/deleteclass">Delete a class</a>
 <a href="/profile/viewquizzes">View your quizzes</a>
+<a href="/profile/makequizzes">Make a new quiz</a>
 {% endif %}
 <dl>
     <img src={{profile_pic}} alt="No image to display">
@@ -31,7 +32,7 @@
 {% if status == 'Professor' %}
     <dt> <b> Classes you teach: </b> </dt>
 {% endif %}
-{% if status == 'Professor' %}
+{% if status == 'Student' %}
     <dt> <b> Classes you've enrolled in: </b> </dt>
 {% endif %}
     {% for class in classes %}

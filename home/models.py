@@ -69,6 +69,8 @@ class Roster(models.Model):
 
 
 class Quiz(models.Model):
+    question = models.CharField(max_length=200)
+
     professor = models.ForeignKey(
         'User',
         on_delete=models.CASCADE
@@ -77,17 +79,16 @@ class Quiz(models.Model):
         'Course',
         on_delete=models.CASCADE
     )
-    choices = models.ForeignKey(
-        'QuizChoices',
-        on_delete=models.CASCADE
-    )
-    question = models.CharField(max_length=500)
 
     def __str__(self):
         return self.courseID.title
 
 
 class QuizChoices(models.Model):
+    quiz = models.ForeignKey(
+        'Quiz',
+        on_delete=models.CASCADE
+    )
     choice = models.CharField(max_length=100)
 
 
