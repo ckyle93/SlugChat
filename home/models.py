@@ -90,6 +90,7 @@ class QuizChoices(models.Model):
         on_delete=models.CASCADE
     )
     choice = models.CharField(max_length=100)
+    correct = models.BooleanField(default=False)
 
 
 class Grade(models.Model):

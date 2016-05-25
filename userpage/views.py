@@ -261,14 +261,13 @@ def makequizzes(request):
         quiz = get_object_or_404(Quiz, pk=key)
         new_choice = QuizChoices(quiz=quiz)
         previous_choices = quiz.quizchoices_set.all().all()
-        print(previous_choices)
         if request.method == 'POST':
             quizchoices_form = QuizChoicesForm(
                     request.POST, instance=new_choice)
             if quizchoices_form.is_valid():
                 quizchoices_form.save()
             return HttpResponseRedirect(
-                    'profile/makequizzes/?quiz_id=' + str(quiz.id))
+                    '/profile/makequizzes/?quiz_id=' + str(quiz.id))
         else:
             quizchoices_form = QuizChoicesForm()
 
