@@ -2,34 +2,38 @@ from django.db import models
 
 
 class User(models.Model):
-    TA = "TA"
-    PROFESSOR = "PR"
-    STUDENT = "ST"
-    statusChoices = (
-        (TA, 'Teaching Assistant'),
-        (PROFESSOR, 'Professor'),
-        (STUDENT, 'Student'),
-    )
-    firstName = models.CharField(max_length=50)
-    lastName = models.CharField(max_length=50)
-    school = models.CharField(max_length=50)
-    studentID = models.CharField(max_length=10)
-    email = models.CharField(max_length=50, unique=True)
-    status = models.CharField(max_length=2,
-                              choices=statusChoices, default=STUDENT)
-    profile_pic = models.CharField(max_length=200, default='N/A')
-    completeProfile = models.BooleanField(default=False)
+        TA = "TA"
+        PROFESSOR = "PR"
+        STUDENT = "ST"
+        statusChoices = (
+                (TA, 'Teaching Assistant'),
+                (PROFESSOR, 'Professor'),
+                (STUDENT, 'Student'),
+        )
+        userID = models.CharField(max_length=100)
+        firstName = models.CharField(max_length=50)
+        lastName = models.CharField(max_length=50)
+        school = models.CharField(max_length=50)
+        studentID = models.CharField(max_length=10)
+        email = models.CharField(max_length=50, unique=True)
+        status = models.CharField(max_length=2,
+                                  choices=statusChoices, default=STUDENT)
+        profile_pic = models.CharField(max_length=200,
+                                       default='N/A',
+                                       null=True,
+                                       blank=True)
+        completeProfile = models.BooleanField(default=False)
 
-    def get_status(self):
-        if self.status == "TA":
-            return 'Teaching Assistant'
-        elif self.status == "ST":
-            return 'Student'
-        elif self.status == "PR":
-            return 'Professor'
+        def get_status(self):
+            if self.status == "TA":
+                return 'Teaching Assistant'
+            elif self.status == "ST":
+                return 'Student'
+            elif self.status == "PR":
+                return 'Professor'
 
-    def __str__(self):
-        return self.firstName
+        def __str__(self):
+            return self.firstName
 
 
 class Course(models.Model):
