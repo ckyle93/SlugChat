@@ -33,6 +33,7 @@ def give_quiz(request):
     else:
         roster_form = RosterForm()
 
-
-
-
+        context = {'firstname': user.firstName,
+                   'currentclass': request.GET.get('class', '')}
+        #return render(request, 'class/class_chat.html', context)
+        return render(request, 'class/mainAppPage.html', context)
