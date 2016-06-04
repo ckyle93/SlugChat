@@ -148,6 +148,7 @@ def buildprofile(request):
 
 
 # Only professors can add a class.
+# This creates a new class object
 def addclass(request):
 
     user = logged_in(request)
@@ -183,6 +184,9 @@ def deleteclass(request):
     if user is None:
         return HttpResponseRedirect('/')
 
+    #if user.get_status() is not 'Professor':
+    #    return HttpResponse(
+    #            'Sorry, only professors can add classes.', status=401)
     if user.get_status() != 'Professor':
         return HttpResponse(
                 'Sorry, only professors can add classes.', status=401)
@@ -204,6 +208,7 @@ def deleteclass(request):
 
 
 # Anyone can enroll in a course.
+# Users can enroll and drop classes via this page
 def manage_classes(request):
 
     user = logged_in(request)
