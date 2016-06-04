@@ -146,6 +146,7 @@ def buildprofile(request):
 
 
 # Only professors can add a class.
+# This creates a new class object
 def addclass(request):
 
     user = logged_in(request)
@@ -204,6 +205,7 @@ def deleteclass(request):
                   {'roster_form': roster_form})
 
 
+# Users can enroll and drop classes via this page
 def manage_classes(request):
 
     user = logged_in(request)
