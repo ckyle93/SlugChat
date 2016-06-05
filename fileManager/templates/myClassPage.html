@@ -225,7 +225,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                <h1>
-                  CMPS 115
+                  {{currentclass}}
                </h1>
             </section>
             <!-- Main content -->
@@ -316,16 +316,9 @@
                                       <div class="tab-pane" id="tab_about">
                                         <div class="row">
                                            <div class="col-sm-6">
-                                             <h2>Intro to Software Engineering</h2>
+                                             <h2>{{currentclass}}</h2>
                                              <p>
-                                               Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                               weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                               jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                               quora plaxo ideeli hulu weebly balihoo.
-                                               Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                               weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                               jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                               quora plaxo ideeli hulu weebly balihoo..
+                                               {{description}}
                                              </p>
                                            </div>
                                            <div class="col-sm-6">
@@ -334,7 +327,7 @@
                                                <div class="col-sm-6">
                                                  <strong><i class="fa fa-calendar margin-r-5"></i>Schedule:</strong>
                                                <p class="text-muted ng-binding">
-                                                 Mon, Thu 10-11:30AM
+                                                 {{time}}
                                                </p>
                                              </div>
                                                <div class="col-sm-6">
@@ -347,10 +340,7 @@
                                                  <hr>
                                              <strong><i class="fa fa-book margin-r-5"></i>Materials:</strong>
                                              <p class="text-muted ng-binding">
-                                               Into to Engineering, McGrawl Hill 2000th edition
-                                             </p>
-                                             <p class="text-muted ng-binding">
-                                               Into to Software Engineering, McGrawl Hill 3rd edition
+                                               {{textbook}}
                                              </p>
                                            </div>
                                            </div>
@@ -358,32 +348,12 @@
                                         </div>
                                         <div class="row">
                                           <div class="col-sm-12">
-                                            <h2>Instructor: Dr. Smith</h2>
+                                            <h2>Instructor: {{professor}}</h2>
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col-sm-4">
                                             <img ng-src="{{userinfo.profile}}" class=" profile-user-img img-responsive img-circle" id = "profilePicture">
-                                          </div>
-                                          <div class="col-sm-8">
-                                            <p>
-                                              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                              weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                              jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                              quora plaxo ideeli hulu weebly balihoo.
-                                              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                              weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                              jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                              quora plaxo ideeli hulu weebly balihoo.
-                                              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                              weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                              jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                              quora plaxo ideeli hulu weebly balihoo.
-                                              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                              weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                              jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                              quora plaxo ideeli hulu weebly balihoo..
-                                            </p>
                                           </div>
                                         </div>
                                       </div>

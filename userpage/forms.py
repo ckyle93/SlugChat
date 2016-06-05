@@ -24,4 +24,4 @@ class CourseForm(ModelForm):
 
     class Meta:
         model = Course
-        fields = ['ta', 'school', 'title']
+        fields = ['ta', 'school', 'title', 'description', 'textbook', 'time']
