@@ -20,8 +20,6 @@ def give_quiz(request):
 
     status = user.get_status();
     if request.method == 'POST':
-            # If user hit Delete button, delete from db only if the user is
-            # enrolled in this class.
             if request.POST.get('delete', '') is not '':
                 user.roster_set.get(courseID=course).delete()
             # Else if the user isn't already enrolled in this course
