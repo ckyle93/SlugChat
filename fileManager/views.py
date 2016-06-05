@@ -22,7 +22,7 @@ def upload_file(request, className):
 def download_file(className):
 	files_to_serve = FileDB.objects.filter(className=className)
 	print(files_to_serve)
-	files = [(MEDIA_URL + x.fileObj.name, x.fileName) for x in files_to_serve]
+	files = [(MEDIA_URL + x.fileObj.name, x.fileName, x.fileObj) for x in files_to_serve]
 	return {'filelist': files}
 
 def get_course_context(className):
