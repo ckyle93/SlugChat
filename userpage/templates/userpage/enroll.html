@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/AdminLTE.min.css'%}">
-<link rel="stylesheet" href="stylesForRestOfSite.css">
+<link rel="stylesheet" href="{%static 'css/stylesForRestOfSite.css'%}">
 <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/skins/skin-blue.min.css'%}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -164,13 +164,14 @@
     </div>
     <div class="content-wrapper">
         <div class="container">
+        <div class="content">
             <div class="row top-buffer">
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><br></div>
             </div>
             <div class="row">
                 <div class="col-lg-10 col-md-10 col-sm-11 col-xs-11">
                     <div class= "panel panel-primary">
-                        <div class="panel-heading">Add or Delete Class </div>
+                        <div class="panel-heading"><strong>Add or Delete Class</strong></div>
                         <div class = "panel-body">
                             <form method="post" class="form-group">
                                 {% csrf_token %}
@@ -188,6 +189,7 @@
                             </form>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -275,10 +277,6 @@
 <script src="{% static 'AdminLTE/bootstrap/js/bootstrap.min.js'%}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'AdminLTE/dist/js/app.min.js'%}"></script>
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-         Both of these plugins are recommended to enhance the
-         user experience. Slimscroll is required when using the
-         fixed layout. -->
 </body>
 </html>
 

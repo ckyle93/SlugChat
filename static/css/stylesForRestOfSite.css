@@ -7,16 +7,13 @@
     padding-right: 0px;
 }
 
-header {
-  height: 100%;
-}
-
 header hr {
     max-width: 50px;
     color: #00458c;
     border-width: 3px;
 }
-.main-page-header {
+.main-page-header 
+{
     position: relative;
     width: 100%;
     min-height: auto;
@@ -63,18 +60,10 @@ header .header-content .header-content-inner p {
              0px 8px 13px rgba(0,0,0,0.1),
              0px 18px 23px rgba(0,0,0,0.1);
     padding: 15px 25px;
-    font-size: 1.65em;
+    font-size: 1.5em;
     letter-spacing: -1.5px;
 }
 
-.main-header > .navbar {
-    min-height: 58px;
-
-}
-
-.navbar-nav > li > a{
-    line-height: 25px;
-}
 
 /* carousel stuff */
 .carousel.fade {
@@ -170,9 +159,7 @@ hr{
 }
 
 /* Profile Page (profile.html) */
-.main-header .logo{
-    height: 57px;
-}
+
 
 .sidebar-menu {
   list-style: none;
@@ -185,17 +172,18 @@ hr{
 /* Nav bar font stuff */
 
 .main-header .logo {
-  font-size: 2em;
+  font-size: 1.5em;
   line-height: 50px;
   text-align: center;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 300;
-  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
-             0px 8px 13px rgba(0,0,0,0.1),
-             0px 18px 23px rgba(0,0,0,0.1);
+  text-shadow: 0px 2px 1px rgba(0,0,0,0.4),
+             0px 4px 8px rgba(0,0,0,0.1),
+             0px 9px 6px rgba(0,0,0,0.1);
   letter-spacing: -1px;
 
 }
+
 #moveMe{
   margin-top: 25px;
   margin-left: 25px;

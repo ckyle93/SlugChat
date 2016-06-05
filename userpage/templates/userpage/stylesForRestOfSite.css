@@ -16,7 +16,9 @@ header hr {
     color: #00458c;
     border-width: 3px;
 }
-.main-page-header {
+.main-page-header 
+{
+    font-size: 1em;
     position: relative;
     width: 100%;
     min-height: auto;
@@ -63,7 +65,7 @@ header .header-content .header-content-inner p {
              0px 8px 13px rgba(0,0,0,0.1),
              0px 18px 23px rgba(0,0,0,0.1);
     padding: 15px 25px;
-    font-size: 1.65em;
+    font-size: 1.45em;
     letter-spacing: -1.5px;
 }
 
