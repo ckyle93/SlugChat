@@ -294,12 +294,23 @@
                                              </form>
 
                                              <ul>
-                                             {% for url, name, file in filelist %}
+                                             {% for url, name, file, commentForm in filelist %}
                                              	<a href={{ url }} download>
                                              		<p>{{name}}</p>
                                              	</a>
+                                             		New Comment
+													<form method="POST" class="post-form">{% csrf_token %}
+													{{commentForm}}
+													<button type="submit" class="save btn btn-default">Submit</button>
+													</form>
+    		                                        {% for comment in file.comment_set.all %}
+												 	    <!--print comment text-->
+												 	    <li>{{ comment.comment }} </br>
+												 	    <i>By: {{comment.user.firstName}} {{comment.user.lastName}} on: {{ comment.pub_date }}</i></li>
+													{% endfor %}
                                              {% endfor %}
                                              </ul>
+
                                            </div>
                                         </div>
                                       </div>

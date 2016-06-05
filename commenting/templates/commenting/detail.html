@@ -11,6 +11,6 @@ New Comment
 {% for comment in file.comment_set.all %}
     <!--print comment text-->
     <li>{{ comment.comment }} </br>
-     <i>Published on: {{ comment.pub_date }}</i></li>
+    <i>By: {{comment.user.firstName}} {{comment.user.lastName}} on: {{ comment.pub_date }}</i></li>
 {% endfor %}
 </ul>
