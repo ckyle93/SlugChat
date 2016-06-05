@@ -26,8 +26,8 @@ def download_file(className):
 def generate(request):
 	user = logged_in(request)
 	if user:
-		className = request.GET.get('className', '')
-		context = {}
+		className = request.GET.get('class', '')
+		context = {'currentclass':className, 'firstname':user.firstName}
 		if user.get_status() == 'Professor':
 			context.update(upload_file(request, className))
 		context.update(download_file(className))
