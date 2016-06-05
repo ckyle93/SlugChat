@@ -26,9 +26,12 @@ def download_file(className):
 	return {'filelist': files}
 
 def get_course_context(className):
-	course = Course.objects.filter(title=className)
-	course = course[0] # get the one/only object out of result set
-	return {'textbook':course.textbook, 'time':course.time, 'description':course.description, 'professor': course.professor}
+	if className:
+		course = Course.objects.filter(title=className)
+		course = course[0] # get the one/only object out of result set
+		return {'textbook':course.textbook, 'time':course.time, 'description':course.description, 'professor': course.professor}
+	else:
+		return {}
 
 def generate(request):
 	user = logged_in(request)
