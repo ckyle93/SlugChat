@@ -17,7 +17,7 @@
     <!-- Main Header -->
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="../../" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>S</b>C</span>
             <!-- logo for regular state and mobile devices -->
@@ -57,12 +57,20 @@
                         <span>Manage Classes</span>
                     </a>
                     </li>
-                    <!--<li class="treeview">
-                    <a href="profileMessages.html">
-                        <i class="fa fa-envelope"></i>
-                        <span>Messages</span>
+                                {% if status == 'Professor' %}
+            <li class="treeview">
+                    <a href="../addclass">
+                        <i class="fa fa-star-half-o"></i>
+                        <span>Create a Class</span>
                     </a>
-                    </li>-->
+                    </li>
+            <li class="treeview">
+                    <a href="../deleteclass">
+                        <i class="fa fa-eraser"></i>
+                        <span>Delete a Class</span>
+                    </a>
+                    </li>
+            {% endif %}
                 </ul>
             </section>
             <!-- /.sidebar -->

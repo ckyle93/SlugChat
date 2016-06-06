@@ -59,7 +59,7 @@
     <!-- Main Header -->
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>S</b>C</span>
             <!-- logo for regular state and mobile devices -->
@@ -71,32 +71,32 @@
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-            <!-- Navbar Right Menu -->
+            
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Classes-->
+                   <!--
                     <li class="dropdown notifications-menu">
-                    <!-- Menu toggle button -->
+                    
+                    
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-users "></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">Your classes:</li>
                         <li>
-                        <!-- Inner Menu: contains the notifications -->
+                        
                         <ul class="menu">
                             <li ng-repeat="classroom in classrooms">
                             <a href="#">
                                 <i class="fa fa-circle text-aqua"></i>
                             </a>
                             </li>
-                            <!-- end notification -->
                         </ul>
                         </li>
 
                         <li class="footer"><a href="#"> <i class=" fa fa-plus"></i>Add Class</a></li>
                     </ul>
-                    </li>
+                    </li>-->
                     <!-- Messages -->
                     <!--<li class="dropdown messages-menu">
 =
@@ -135,26 +135,24 @@
                         </ul>
                         </li>
                         <li class="footer"><a href="#">See All Messages</a></li>
-                    </ul> -->
-                    </li>
+                    </ul> 
+                    </li> -->
+                    <!--
                     <li class="dropdown user user-menu">
-                    <!-- Menu Toggle Button -->
+                    
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <!-- The user image in the navbar-->
+                        
                         <img src="" class="user-image img-responsive" alt="">
-                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+
                         <span class="hidden-xs"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <!-- The user image in the menu -->
                         <li class="user-header">
                         <img src="" class="img-circle img-responsive" alt="User Image">
                         <p>
 
                         </p>
                         </li>
-                        <!-- Menu Body -->
-                        <!-- Menu Footer-->
                         <li class="user-footer">
                         <div class="pull-left">
                             <a href="#" class="btn btn-default btn-flat">Profile</a>
@@ -164,7 +162,7 @@
                         </div>
                         </li>
                     </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </nav>
@@ -179,7 +177,7 @@
                 <ul class="sidebar-menu">
                     <li class="header text-center">DASHBOARD</li>
                     <li class="active treeview">
-                    <a href="../">
+                    <a href="../../">
                         <i class="fa fa-th"></i>
                         <span>Profile</span>
                     </a>
@@ -190,12 +188,20 @@
                         <span>Manage Classes</span>
                     </a>
                     </li>
-                    <!--<li class="treeview">
-                    <a href="profileMessages.html">
-                        <i class="fa fa-envelope"></i>
-                        <span>Messages</span>
+                    {% if status == 'Professor' %}
+            <li class="treeview">
+                    <a href="../addclass">
+                        <i class="fa fa-star-half-o"></i>
+                        <span>Create a Class</span>
                     </a>
-                    </li>-->
+                    </li>
+            <li class="treeview">
+                    <a href="../deleteclass">
+                        <i class="fa fa-eraser"></i>
+                        <span>Delete a Class</span>
+                    </a>
+                    </li>
+            {% endif %}
                 </ul>
             </section>
             <!-- /.sidebar -->

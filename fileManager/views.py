@@ -16,6 +16,7 @@ def upload_file(request, className):
 		form = FileForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
+			form = FileForm(initial={'className':className})
 	else:
 		form = FileForm(initial={'className':className})
 	return {'dl_form': form}
@@ -48,6 +49,7 @@ def make_comment(request, user, file):
 			comment.user = user
 			comment.pub_date = datetime.now()
 			comment.save()
+			form = CommentForm()
 	else:
 		form = CommentForm()
 	return form
@@ -59,7 +61,8 @@ def generate(request):
 		className = request.GET.get('class', '')
 		course = Course.objects.get(title=className)
 		professor = course.professor
-		context = {'currentclass':className, 'firstname':user.firstName, 'course':course, 'professor':professor}
+		context = {'status':user.get_status(),'currentclass':className, 'firstname':user.firstName, 'course':course, 'professor':professor}
+
 		if user.get_status() == 'Professor':
 			context.update(upload_file(request, className))
 		context.update(download_file(request, className, user))
