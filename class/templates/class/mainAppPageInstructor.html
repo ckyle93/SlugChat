@@ -216,18 +216,7 @@
                                    <div class="col-sm-12">
                                      <div class="box box-primary">
                                             <div class="box-header with-border">
-                                              <h4 class="box-title">Notes</h4>
-                                              <div class="box-tools pull-right">
-
-                                                <div class="btn-group">
-                                                  <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fafa-save"></i></button>
-                                                  <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Save</a></li>
-                                                    <li><a href="#">Download</a></li>
-                                                  </ul>
-                                                </div>
-                                              </div>
+                                              <h4 class="box-title">Chat</h4>
                                             </div><!-- /.box-header -->
                                             <div class="box-body">
                                               <iframe src="https://kiwiirc.com/client/irc.kiwiirc.com/?nick={{firstname}}?#{{currentclass}}"
@@ -335,8 +324,8 @@
             <div class="quiz" id="quiz" data-toggle="buttons"></div>
          <div class="quiz" id="quiz-confirmation">
           <div class="col-xs-12">
-            <div id="bar-chart" style="height: 300px; padding: 0px; position: relative;"><canvas class="flot-base" width="461" height="300" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 461px; height: 300px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 76px; top: 283px; left: 21px; text-align: center;">January</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 76px; top: 283px; left: 95px; text-align: center;">February</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 76px; top: 283px; left: 178px; text-align: center;">March</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 76px; top: 283px; left: 257px; text-align: center;">April</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 76px; top: 283px; left: 334px; text-align: center;">May</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 76px; top: 283px; left: 408px; text-align: center;">June</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 270px; left: 7px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 203px; left: 7px; text-align: right;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 135px; left: 1px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 68px; left: 1px; text-align: right;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 1px; text-align: right;">20</div></div></div><canvas class="flot-overlay" width="461" height="300" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 461px; height: 300px;"></canvas></div>
-        </div>
+          <div id="bar-chart" style="height: 300px;"></div>
+          </div>
          </div>
      </div>
      <div class="modal-footer text-muted">
@@ -382,41 +371,22 @@
       <!-- AdminLTE App -->
       <script src="{% static 'AdminLTE/dist/js/app.min.js' %}"></script>
       <script src="{% static 'AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'%}"></script>
+
+      <!-- FastClick -->
+      <script src="{% static 'AdminLTE/plugins/fastclick/fastclick.min.js'%}"></script>
+      <!-- FLOT CHARTS -->
+      <script src="{% static 'AdminLTE/plugins/flot/jquery.flot.min.js'%}"></script>
+      <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+      <script src="{% static 'AdminLTE/plugins/flot/jquery.flot.resize.min.js'%}"></script>
+      <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+      <script src="{% static 'AdminLTE/plugins/flot/jquery.flot.categories.min.js'%}"></script>
+
       <script src="{% static 'js/profileScripts.js' %}"></script>
-      <script src="{% static 'js/angular.min.js' %}"></script>
-      <script src="{% static 'js/controllers.js' %}"></script>
       <script src="{% static 'js/pdfobject.js' %}"></script>
       <script src="{% static 'js/mainAppInstructor.js' %}"></script>
       <script src="{% static 'js/mainAppPollInstructor.js' %}"></script>
-<!--
-      <script>
-        $(function () {
-          //Add text editor
-          $("#notes-textarea").wysihtml5({
-            toolbar: {
-              "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-              "emphasis": false, //Italics, bold, etc. Default true
-              "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-              "html": false, //Button which allows you to edit the generated HTML. Default false
-              "link": false, //Button to insert a link. Default true
-              "image": false, //Button to insert an image. Default true,
-              "color": false, //Button to change color of font
-              "blockquote": false, //Blockquote
-              "size": 'sm' //default: none, other options are xs, sm, lg
-            }
-          });
-        });
-        /*
-        "font-styles" : true,
-        "emphasis": false,
-        "lists": false,
-        "html": false,
-        "link": false,
-        "image": false,
-        "color": false,
-        */
-      </script>
-    -->
+
+
       <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. Slimscroll is required when using the
