@@ -11,4 +11,5 @@ def class_chat(request):
         context = {'firstname': user.firstName,
                    'currentclass': request.GET.get('class', '')}
         #return render(request, 'class/class_chat.html', context)
-        return render(request, 'class/mainAppPage.html', context)
+        #return render(request, 'class/mainAppPageStudent.html', context)
+        return render(request, 'class/mainAppPageInstructor.html', context)

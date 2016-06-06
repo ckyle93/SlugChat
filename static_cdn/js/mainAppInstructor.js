@@ -20,6 +20,7 @@ function togglePoll(){
 }
 
 function changePage(number){
+/*Make an ajax call to the backend that will change the pagenumber*/
 var numval = String(number);
 PDFObject.embed("../static/Planning.pdf", "#presentationFrame",{page: numval,height:"400px",width:"100%" });
 }

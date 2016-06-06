@@ -1,5 +1,5 @@
 var currentPage = 1;
-
+var intervalID;  
 function start(){
 
 if(PDFObject.supportsPDFs){
@@ -10,6 +10,7 @@ if(PDFObject.supportsPDFs){
 $("#takePollDisplay").toggle();
 changePage(1);
 setFrameOnAdjust();
+intervalID = setInterval(checkUpdate(),5000);
 
 }
 
@@ -76,3 +77,7 @@ function setChatHeight(number){
     $("#chatapp-im-disp").height(number);
 }
 $(window).resize(setFrameOnAdjust);
+
+var checkUpdate = function() {
+  console.log(" called CHECKUPDATE ");
+}
