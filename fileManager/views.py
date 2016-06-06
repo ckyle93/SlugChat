@@ -9,7 +9,7 @@ from home.models import Course
 from slugchat.functions import logged_in
 from slugchat.settings import MEDIA_ROOT, MEDIA_URL
 
-from .forms import CommentForm
+from commenting.forms import CommentForm
 from datetime import datetime
 
 def upload_file(request, className):

@@ -14,15 +14,9 @@ Please specify a file:<br>
 {%endif%}
 
 <ul>
-<!--THIS FOR LOOP NEEDS A REFERENCE TO THE ACTUAL FILE OBJECT-->
-{% for file, url, name in filelist %}
+{% for url, name in filelist %}
 	<a href={{ url }} download>
 		<p>{{name}}</p>
 	</a>
-	{% for comment in file.comment_set.all %}
-	    <!--print comment text-->
-	    <li>{{ comment.comment }} </br>
-	    <i>By: {{comment.user.firstName}} {{comment.user.lastName}} on: {{ comment.pub_date }}</i></li>
-	{% endfor %}
 {% endfor %}
 </ul>
