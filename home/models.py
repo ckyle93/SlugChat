@@ -51,6 +51,7 @@ class Course(models.Model):
         blank=True,
         related_name='ta',
     )
+    activeQuiz = models.BooleanField(default=False)
     school = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
 

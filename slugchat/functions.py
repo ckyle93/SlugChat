@@ -6,6 +6,7 @@ from home.models import User
 # to get the oath2client
 from oauth2client import client, crypt
 
+
 class QuizObj(object):
 
     def __init__(self):
