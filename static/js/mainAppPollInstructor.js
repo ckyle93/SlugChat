@@ -1,13 +1,19 @@
 var choice;
 var choiceText;
 var showCorrect = false;
-
 var pollQuestions = [
   'Attendance',
   'When should the next quiz be?',
   'Which of the following is NOT a UML model?',
   'Who is known as the godmother of software engineering?'
 ];
+
+
+var bar_data = {
+    data: [["Sunday",1],["Monday", 10], ["Tuesday", 8], ["Wednesday", 4], ["Thursday",2],["Friday", 13],["Saturday",25]],
+    color: "#3c8dbc"
+  };
+
 $(window).load(function(){
   $('#submitAnswerBtn').hide();
   $('#stopPollBtn').hide();
@@ -68,6 +74,7 @@ $(function(){
       setTimeout(function(){
             if (showCorrect){$( "#answer" ).html(  $(this).checking(choice) );}
             $('#quiz-confirmation').fadeIn();
+            updateChartData();
             $('#stopPollBtn').fadeIn();
             $('#loadbar').fadeOut();
            /* something else */
@@ -83,3 +90,29 @@ $(function(){
             return 'CORRECT';
     };
 });
+
+var updateChartData = function() {
+  /*BAR CHART*/
+
+
+
+    $.plot("#bar-chart", [bar_data], {
+      grid: {
+        borderWidth: 1,
+        borderColor: "#f3f3f3",
+        tickColor: "#f3f3f3"
+      },
+      series: {
+        bars: {
+          show: true,
+          barWidth: (3.25 / bar_data["data"].length),
+          align: "center"
+        }
+      },
+      xaxis: {
+        mode: "categories",
+        tickLength: 0
+      }
+    });
+    /* END BAR CHART */
+}
