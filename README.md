@@ -16,3 +16,10 @@
 
 ##To Use
 Slugchat is user friendly and will walk you through the steps needed for a user to link their google account and create a profile with the desired attributes and role (TA, Student, Professor)!
+
+##Contributors
+Marvin Corro (mcorro1@ucsc.edu)
+Joseph Faulkner(jofaulkn@ucsc.edu)
+Christopher Ketchum (cketchum@ucsc.edu)
+Chris Kyle (ckyle@ucsc.edu)
+Aramis Marden (amarden@ucsc.edu)
