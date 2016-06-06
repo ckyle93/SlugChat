@@ -12,8 +12,6 @@ from slugchat.settings import MEDIA_ROOT, MEDIA_URL
 from datetime import datetime
 
 def upload_file(request, className):
-	print('upload!!!')
-	print(request.POST)
 	if request.method == 'POST' and 'fileName' in request.POST:
 		form = FileForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -37,13 +35,10 @@ def get_course_context(className):
 		return {}
 
 def make_comment(request, user, file):
-	print('comment')
-	print(request.POST)
 	if request.method == 'POST' and 'comment' in request.POST:
-		print('comment post')
+		form_to_submit = request.POST.get('file_name','')
 		form = CommentForm(request.POST)
-		if form.is_valid():
-			print('comment save')
+		if file.fileName == form_to_submit and form.is_valid():
 			comment = form.save(commit=False)
 			comment.file = file
 			comment.user = user
