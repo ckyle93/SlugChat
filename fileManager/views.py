@@ -16,6 +16,7 @@ def upload_file(request, className):
 		form = FileForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
+			form = FileForm(initial={'className':className})
 	else:
 		form = FileForm(initial={'className':className})
 	return {'dl_form': form}
@@ -44,6 +45,7 @@ def make_comment(request, user, file):
 			comment.user = user
 			comment.pub_date = datetime.now()
 			comment.save()
+			form = CommentForm()
 	else:
 		form = CommentForm()
 	return form
