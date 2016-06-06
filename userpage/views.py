@@ -143,9 +143,16 @@ def buildprofile(request):
     else:
         user_form = UserForm(instance=user)
 
-    status = user.get_status()
+    context = {'full_name': user.firstName + " " + user.lastName,
+               'school': user.school,
+               'studentID': user.studentID,
+               'email': user.email,
+               'profile_pic': user.profile_pic,
+               'user_form': user_form,
+               'status': user.get_status()
+               }
     #return render(request, 'userpage/buildprofile.html', {'user_form': user_form})
-    return render(request, 'userpage/editprofile.html', {'status': status, 'user_form': user_form})
+    return render(request, 'userpage/editprofile.html', context)
 
 
 

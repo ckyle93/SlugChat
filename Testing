@@ -1,0 +1,2 @@
+File Uploading downloading:
+I tested uploading different file types and tested uploading several times in a row. I also tested downloading these different files multiple times each to insure they behaved the same on subsequent downloads. The equivalence classes I considered were different types of files - I tested on image, text, and video files. I think these were good equivalence classes because they ended up behaving differently, showing that there was a real distinction between the classes.
