@@ -75,109 +75,7 @@
                <!-- Navbar Right Menu -->
                <div class="navbar-custom-menu">
                   <ul class="nav navbar-nav">
-                     <!-- Classes-->
-                     <li class="dropdown notifications-menu">
-                        <!-- Menu toggle button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-users "></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                           <li class="header">Your classes:</li>
-                           <li>
-                              <!-- Inner Menu: contains the notifications -->
-                              <ul class="menu">
-                                 <li ng-repeat="classroom in classrooms">
-                                   <a href="#">
-                                   <i class="fa fa-circle text-aqua"></i> {{classroom.name}}
-                                   </a>
-                                 </li>
-                                 <!-- end notification -->
-                              </ul>
-                           </li>
 
-                           <li class="footer"><a href="#"> <i class=" fa fa-plus"></i>Add Class</a></li>
-                        </ul>
-                     </li>
-                    <!-- Messages -->
-                     <li class="dropdown messages-menu">
-                        <!-- Menu toggle button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa fa-comments-o "></i>
-                        <span class="label label-success">{{messages.length}}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                           <li class="header">Recent Messages</li>
-                           <li>
-                              <!-- inner menu: contains the messages -->
-                              <ul class="menu" >
-                                 <li>
-                                    <!-- start message -->
-                                    <a href="#">
-                                       <div class="pull-left">
-                                          <!-- User Image -->
-                                          <img src="../static/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                       </div>
-                                       <!-- Message title and timestamp -->
-                                       <h4>
-                                          Support Team
-                                          <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                       </h4>
-                                       <!-- The message -->
-                                       <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                 </li>
-                                 <li ng-repeat="message in messages">
-                                   <a href ="#">
-                                     <div class="pull-left">
-                                        <!-- User Image -->
-                                        <img ng-src="{{message.profile}}" alt="{{message.name}}" class="img-circle img-responsive" >
-                                     </div>
-                                     <!-- Message title and timestamp -->
-                                     <h4>
-                                        {{message.name}}
-                                        <small><i class="fa fa-clock-o"></i>{{message.time}}</small>
-                                     </h4>
-                                     <!-- The subject -->
-                                     <p>{{message.subject}}</p>
-                                   </a>
-                                 </li>
-                                 <!-- end message -->
-                              </ul>
-                              <!-- /.menu -->
-                           </li>
-                           <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                     </li>
-                     <!-- /.messages-menu -->
-
-                     <li class="dropdown user user-menu">
-                        <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                           <!-- The user image in the navbar-->
-                           <img ng-src="{{userinfo.profile}}" class="user-image img-responsive" alt="{{userinfo.username}}">
-                           <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                           <span class="hidden-xs">{{userinfo.name}}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                           <!-- The user image in the menu -->
-                           <li class="user-header">
-                              <img ng-src="{{userinfo.profile}}" class="img-circle img-responsive" alt="User Image">
-                              <p>
-                                 {{userinfo.username}} - {{userinfo.title}}
-                              </p>
-                           </li>
-                           <!-- Menu Body -->
-                           <!-- Menu Footer-->
-                           <li class="user-footer">
-                              <div class="pull-left">
-                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
-                              </div>
-                              <div class="pull-right">
-                                 <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                              </div>
-                           </li>
-                        </ul>
-                     </li>
                   </ul>
                </div>
             </nav>
@@ -246,14 +144,14 @@
                                   <!-- Custom Tabs -->
                                   <div class="nav-tabs-custom">
                                     <ul class="nav nav-tabs">
-                                      <li class="active"><a href="#tab_chat" data-toggle="tab" aria-expanded="false">Chat</a></li>
-                                      <li class=""><a href="#tab_files" data-toggle="tab" aria-expanded="false">Files</a></li>
+                                      <li class=""><a href="#tab_chat" data-toggle="tab" aria-expanded="false">Chat</a></li>
+                                      <li class="active"><a href="#tab_files" data-toggle="tab" aria-expanded="false">Files</a></li>
                                       <li class=""><a href="#tab_about" data-toggle="tab" aria-expanded="false">About</a></li>
                                       <li class=""><a href="/fileManager/?class={{currentclass}}" aria-expanded="false">Lecture</a></li>
                                       <li class="pull-right header"><i class="fa fa-group "></i></li>
                                     </ul>
                                     <div class="tab-content">
-                                      <div class="tab-pane active" id="tab_chat">
+                                      <div class="tab-pane" id="tab_chat">
                                         <div class="row">
                                            <div class="col-sm-12">
                                              <h2>Class Chat</h2>
@@ -276,7 +174,7 @@
                                            </div>
                                         </div>
                                       </div>
-                                      <div class="tab-pane" id="tab_files">
+                                      <div class="tab-pane active" id="tab_files">
                                         <div class="row">
                                            <div class="col-sm-12">
                                              <h2>Class Files</h2>
@@ -289,21 +187,22 @@
                                              {{ form.non_field_errors }}
                                              </p>
                                              <div>
-                                             <input type="submit" value="Send File">
+                                             <div class="panel-footer">
+                                                 <input type="submit" value="Send File" class="btn btn-primary btn-sm" />
+                                             </div>
                                              </div>
                                              </form>
-
                                              <ul>
                                              {% for url, name, file, commentForm in filelist %}
                                              	<a href={{ url }} download>
                                              		<p>{{name}}</p>
                                              	</a>
                                              		New Comment
-													<form method="POST" class="post-form">{% csrf_token %}
-													{{commentForm}}
-                          <input type="hidden" value={{name}} name="file_name" />
-													<input type="submit" value="Comment">
-													</form>
+                      													<form method="POST" class="post-form">{% csrf_token %}
+                      													    {{commentForm}}
+                                                <input type="hidden" value={{name}} name="file_name" />
+                      													<input type="submit" value="Comment">
+                      													</form>
     		                                        {% for comment in file.comment_set.all %}
 												 	    <!--print comment text-->
 												 	    <div><li>{{ comment.comment }} </br>
