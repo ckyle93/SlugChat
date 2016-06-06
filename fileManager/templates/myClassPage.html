@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <!--
    This is a starter template page. Use this page to start your new project from
@@ -178,11 +179,13 @@
                                         <div class="row">
                                            <div class="col-sm-12">
                                              <h2>Class Files</h2>
+
+
                                              <form action="/class/?class={{currentclass}}" enctype="multipart/form-data" method="POST">
                                              {% csrf_token %}
                                              <p>
                                              Please specify a file:<br>
-                                             {{dl_form}}
+                                             {{dl_form|crispy}}
                                              {{ form.errors }}
                                              {{ form.non_field_errors }}
                                              </p>
@@ -192,23 +195,28 @@
                                              </div>
                                              </div>
                                              </form>
+
                                              <ul>
                                              {% for url, name, file, commentForm in filelist %}
                                              	<a href={{ url }} download>
-                                             		<p>{{name}}</p>
+                                             		<p><h3>{{name}}</h3></p>
                                              	</a>
                                              		New Comment
                       													<form method="POST" class="post-form">{% csrf_token %}
-                      													    {{commentForm}}
+                      													    {{commentForm|crispy}}
                                                 <input type="hidden" value={{name}} name="file_name" />
-                      													<input type="submit" value="Comment">
+                      													<input type="submit" value="Comment" class="btn btn-primary btn-sm">
                       													</form>
+                                                <ul>
     		                                        {% for comment in file.comment_set.all %}
 												 	    <!--print comment text-->
-												 	    <div><li>{{ comment.comment }} </br>
-												 	    <i>By: {{comment.user.firstName}} {{comment.user.lastName}} on: {{ comment.pub_date }}</i></li></div>
+												 	    <li>{{ comment.comment }} </br>
+												 	    <i>By: {{comment.user.firstName}} {{comment.user.lastName}} on: {{ comment.pub_date }}</i></li>
 													{% endfor %}
+                        </ul>
+                        <br>
                                              {% endfor %}
+
                                              </ul>
 
                                            </div>
