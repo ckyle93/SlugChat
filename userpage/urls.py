@@ -3,6 +3,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^makequizzes/', views.makequizzes, name='makequizzes'),
+    url(r'^viewquizzes/', views.viewquizzes, name='viewquizzes'),
     url(r'^deleteclass/', views.deleteclass, name='deleteclass'),
     url(r'^signout/', views.signout, name='signout'),
     url(r'^tokensignin/', views.tokensignin, name='tokensignin'),

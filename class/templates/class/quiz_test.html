@@ -1,0 +1,54 @@
+{% for quiz in quiz_list %}
+<div id="quiz">
+<b> Quiz Question Text </b>
+{{ quiz.question_text }}
+    <input type="button" value="Pick" name="quiz_choice" onclick="pickQuiz(1);" />
+{% endfor %}
+</div>
+<script>
+
+function pickQuiz(quizID) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById("quiz").innerHTML =
+            xhr.responseText;
+        }
+    };
+    xhr.open('POST', 'http://localhost:8000/fileManager/pick_quiz/');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send("quizID="+quizID);
+}
+
+function checkAnswer(quizID,choice) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById("quiz").innerHTML =
+            xhr.responseText;
+        }
+    };
+    xhr.open('POST', 'http://localhost:8000/fileManager/check_answer/');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send("quizID="+quizID+"&choice="+choice);
+}
+
+//   window.setInterval(function(){
+//        //checkQuiz();
+//    }, 5000);
+//    // Query the server for whether a quiz is being given. If so, return the
+//    // html page ajax_quiz.html
+//    function checkQuiz() {
+//        var xhr = new XMLHttpRequest();
+//        xhr.onreadystatechange = function() {
+//            if (xhr.readyState == 4 && xhr.status == 200) {
+//                document.getElementById("quiz").innerHTML =
+//                xhr.responseText;
+//            }
+//        };
+//        xhr.open('POST', 'http://localhost:8000/profile/tokensignin/');
+//        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//        xhr.send("give_quiz");
+//    }
+</script>
+

@@ -8,6 +8,8 @@
 {% if status == 'Professor' %}
 <a href="/profile/addclass">Create a class</a>
 <a href="/profile/deleteclass">Delete a class</a>
+<a href="/profile/viewquizzes">View your quizzes</a>
+<a href="/profile/makequizzes">Make a new quiz</a>
 {% endif %}
 <dl>
     <img src={{profile_pic}} alt="No image to display">
@@ -27,7 +29,12 @@
     <dt> <b> Status: </b> </dt>
     <dd> {{status}} </dd>
 
-    <dt> <b> Classes: </b> </dt>
+{% if status == 'Professor' %}
+    <dt> <b> Classes you teach: </b> </dt>
+{% endif %}
+{% if status == 'Student' %}
+    <dt> <b> Classes you've enrolled in: </b> </dt>
+{% endif %}
     {% for class in classes %}
     <a href="/class/?class={{class.courseID}}"> {{class.courseID}}</a>
     {% endfor %}

@@ -2,10 +2,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from home.models import User, Roster, Course
-from userpage.forms import UserForm, RosterForm, CourseForm
+from django.shortcuts import get_object_or_404
+from home.models import User, Roster, Course, Quiz, QuizChoices
+from userpage.forms import UserForm, RosterForm, CourseForm, QuizForm
+from userpage.forms import QuizChoicesForm
 
-from slugchat.functions import logged_in, verify_user
+from slugchat.functions import logged_in, QuizObj, verify_user
 
 
 # This is the function that takes the info from google sign in, then adds the
@@ -205,6 +207,7 @@ def deleteclass(request):
                   {'roster_form': roster_form})
 
 
+# Anyone can enroll in a course.
 # Users can enroll and drop classes via this page
 def manage_classes(request):
 
@@ -234,3 +237,79 @@ def manage_classes(request):
 
     return render(request, 'userpage/enroll.html',
                   {'roster_form': roster_form})
+
+
+def viewquizzes(request):
+    user = logged_in(request)
+
+    if user is None:
+        return HttpResponseRedirect('/')
+
+    if user.get_status() is not 'Professor':
+        return HttpResponse(
+                'Sorry, only professors can view.', status=401)
+
+    quizzes = user.quiz_set.all().all()
+
+    quiz_list = []
+    for quiz in quizzes:
+        new_quiz = QuizObj()
+        new_quiz.question_text = quiz.question
+        new_quiz.id = quiz.id
+        choices = quiz.quizchoices_set.all().all()
+        for choice in choices:
+            new_quiz.choices.append(choice.choice)
+        quiz_list.append(new_quiz)
+    if request.method == 'POST':
+        quiz_id = request.POST['id']
+        Quiz.objects.get(id=quiz_id).delete()
+        return HttpResponseRedirect('/profile/viewquizzes')
+    else:
+        return render(request, 'userpage/viewquizzes.html',
+                      {'quiz_list': quiz_list})
+
+
+def makequizzes(request):
+    user = logged_in(request)
+
+    if user is None:
+        return HttpResponseRedirect('/')
+
+    if user.get_status() is not 'Professor':
+        return HttpResponse(
+                'Sorry, only professors can view.', status=401)
+
+    # If the we are updating a quizz's choices, the urls is
+    # /profile/makequizzes/?quiz_id=pk, where pk is the primary key
+    # of the Quiz object we want to add choices to.
+    key = request.GET.get('quiz_id', '')
+    if key is not '':
+        quiz = get_object_or_404(Quiz, pk=key)
+        new_choice = QuizChoices(quiz=quiz)
+        previous_choices = quiz.quizchoices_set.all().all()
+        if request.method == 'POST':
+            quizchoices_form = QuizChoicesForm(
+                    request.POST, instance=new_choice)
+            if quizchoices_form.is_valid():
+                quizchoices_form.save()
+            return HttpResponseRedirect(
+                    '/profile/makequizzes/?quiz_id=' + str(quiz.id))
+        else:
+            quizchoices_form = QuizChoicesForm()
+
+        return render(request, 'userpage/addchoices.html',
+                      {'quizchoices_form': quizchoices_form,
+                       'previous_choices': previous_choices})
+
+    quiz = Quiz(professor=user)
+    if request.method == 'POST':
+        quiz_form = QuizForm(request.POST, instance=quiz)
+        if quiz_form.is_valid():
+            quiz_form.save()
+        return HttpResponseRedirect('/profile/makequizzes/?quiz_id=' +
+                                    str(quiz.id))
+    else:
+        quiz_form = QuizForm()
+
+    return render(request, 'userpage/makequizzes.html',
+                  {'quiz_form': quiz_form})
