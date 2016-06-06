@@ -46,6 +46,7 @@ def class_chat(request):
 @csrf_exempt
 def pick_quiz(request):
     quizID = request.POST['quizID']
+    class_title = request.POST['class']
 
     quiz = Quiz.objects.get(id=quizID)
 
@@ -56,6 +57,8 @@ def pick_quiz(request):
     for choice in choices:
         new_quiz.choices.append(choice)
     context = {'quiz': new_quiz}
+
+    course = Course.objects.get(title=class_title)
     return render(request, 'class/show_quiz.html', context)
 
 
@@ -101,6 +104,39 @@ def quiz_choices(request):
     context = {'firstname': user.firstname, 'status': status,
                'quiz_list': quiz_list}
     return render(request, 'class/quiz_test.html', context)
+
+
+@csrf_exempt
+def check_quiz(request):
+    user = logged_in(request)
+
+    if user is None:
+        return HttpResponseRedirect('/')
+
+    currentclass = request.get.get('class', '')
+
+    if currentclass == '':
+        return HttpResponseRedirect('/')
+
+    if not Course.objects.filter(title=currentclass).exists():
+        return HttpResponseRedirect('/')
+
+    if not Course.objects.get(title=currentclass,activeQuiz=True):
+        return HttpResponse('')
+
+    course = Course.objects.get(title=currentclass)
+    quizID = course.quizID
+
+    quiz = Quiz.objects.get(id=quizID)
+
+    new_quiz = QuizObj()
+    new_quiz.question_text = quiz.question
+    new_quiz.id = quiz.id
+    choices = quiz.quizchoices_set.all().all()
+    for choice in choices:
+        new_quiz.choices.append(choice)
+    context = {'quiz': new_quiz}
+    return render(request, 'class/show_quiz.html', context)
 
 
 # def give_quiz(request):
