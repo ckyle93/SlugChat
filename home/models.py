@@ -52,6 +52,9 @@ class Course(models.Model):
                 related_name='ta',
         )
         school = models.CharField(max_length=50)
+        description = models.CharField(max_length = 200)
+        time = models.CharField(max_length = 50)
+        textbook = models.CharField(max_length = 50)
         title = models.CharField(max_length=50)
 
         def __str__(self):
