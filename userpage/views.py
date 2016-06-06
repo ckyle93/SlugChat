@@ -172,7 +172,7 @@ def addclass(request):
     else:
         course_form = CourseForm()
 
-    status = get_status()
+    status = user.get_status()
     return render(request, 'userpage/addclass.html',
             {'status': status, 'course_form': course_form})
 
@@ -204,7 +204,7 @@ def deleteclass(request):
     else:
         roster_form = RosterForm()
 
-    status = get_status()
+    status = user.get_status()
     return render(request, 'userpage/deleteclass.html',
             {'status': status, 'roster_form': roster_form})
 
