@@ -7,8 +7,15 @@ from home.models import User
 from oauth2client import client, crypt
 
 
-# (Receive token by HTTPS POST)
+class QuizObj(object):
 
+    def __init__(self):
+        self.id = -1
+        self.question_text = 'N/A'
+        self.choices = []
+
+
+# (Receive token by HTTPS POST)
 def verify_user(token):
     # Open google key file
     try:

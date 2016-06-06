@@ -37,9 +37,13 @@ def get_course_context(className):
 
 def make_comment(request, user, file):
 	if request.method == 'POST' and 'comment' in request.POST:
+		print ("IN FIRST IF")
 		form_to_submit = request.POST.get('file_name','')
 		form = CommentForm(request.POST)
-		if file.fileName == form_to_submit and form.is_valid():
+		print (file.fileName, form_to_submit)
+		print (form.is_valid())
+		if (file.fileName == form_to_submit or (form_to_submit in file.fileName)) and form.is_valid():
+			print ("IN SECOND IF")
 			comment = form.save(commit=False)
 			comment.file = file
 			comment.user = user
@@ -55,7 +59,10 @@ def generate(request):
 	user = logged_in(request)
 	if user:
 		className = request.GET.get('class', '')
-		context = {'status': user.get_status(), 'currentclass':className, 'firstname':user.firstName}
+		course = Course.objects.get(title=className)
+		professor = course.professor
+		context = {'status':user.get_status(),'currentclass':className, 'firstname':user.firstName, 'course':course, 'professor':professor}
+
 		if user.get_status() == 'Professor':
 			context.update(upload_file(request, className))
 		context.update(download_file(request, className, user))

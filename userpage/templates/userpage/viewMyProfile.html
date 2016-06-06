@@ -100,23 +100,23 @@
                 <span>Manage Classes</span>
               </a>
             </li>
-{% if status == 'Professor' %}
+            {% if status == 'Student' %}
             <li class="treeview">
-                    <a href="addclass">
-                        <i class="fa fa-star-half-o"></i>
-                        <span>Create a Class</span>
-                    </a>
-                    </li>
-            <li class="treeview">
-                    <a href="deleteclass">
-                        <i class="fa fa-eraser"></i>
-                        <span>Delete a Class</span>
-                    </a>
-                    </li>
+              <a href="/profile/enroll">
+                <i class="fa fa-dashboard"></i>
+                <span>Enroll in Classes</span>
+              </a>
+            </li>
             {% endif %}
-          </ul>
-        </section>
-        <!-- /.sidebar -->
+            {% if status == 'Professor' %}
+            <li class="treeview">
+            <a href="/profile/addclass">
+              <i class="fa fa-dashboard"></i>
+              <span>Add a class</span>
+            </a>
+            </li>
+            {% endif %}
+
       </aside>
          </div>
          <!-- Content Wrapper. Contains page content -->
@@ -287,7 +287,7 @@
                                 </div>
 
                                 </div>
-                                
+
                       </div>
 
                     -->

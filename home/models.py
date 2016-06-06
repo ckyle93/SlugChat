@@ -56,20 +56,58 @@ class Course(models.Model):
         time = models.CharField(max_length = 50)
         textbook = models.CharField(max_length = 50)
         title = models.CharField(max_length=50)
+        activeQuiz = models.BooleanField(default=False)
 
         def __str__(self):
             return self.title
 
 
 class Roster(models.Model):
-        studentID = models.ForeignKey(
-                'User',
-                on_delete=models.CASCADE
-        )
-        courseID = models.ForeignKey(
-                'Course',
-                on_delete=models.CASCADE
-        )
+    studentID = models.ForeignKey(
+        'User',
+        on_delete=models.CASCADE
+    )
+    courseID = models.ForeignKey(
+        'Course',
+        on_delete=models.CASCADE
+    )
 
-        def __str__(self):
-            return self.courseID.title
+    def __str__(self):
+        return self.courseID.title
+
+
+class Quiz(models.Model):
+    question = models.CharField(max_length=200)
+
+    professor = models.ForeignKey(
+        'User',
+        on_delete=models.CASCADE
+    )
+    courseID = models.ForeignKey(
+        'Course',
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.courseID.title
+
+
+class QuizChoices(models.Model):
+    quiz = models.ForeignKey(
+        'Quiz',
+        on_delete=models.CASCADE
+    )
+    choice = models.CharField(max_length=100)
+    correct = models.BooleanField(default=False)
+
+
+class Grade(models.Model):
+    student = models.ForeignKey(
+        'User',
+        on_delete=models.CASCADE
+    )
+    quiz = models.ForeignKey(
+        'Quiz',
+        on_delete=models.CASCADE
+    )
+    score = models.IntegerField(default=0)
