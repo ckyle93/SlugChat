@@ -91,29 +91,31 @@
           <ul class="sidebar-menu">
             <li class="header text-center">DASHBOARD</li>
             <li class="active treeview">
-              <a href="profile.html">
+              <a href="../profile">
                 <i class="fa fa-th"></i>
                 <span>Profile</span>
               </a>
             </li>
             <li class="treeview">
-              <a href="profileStats.html">
+              <a href="../profile/enroll">
                 <i class="fa fa-dashboard"></i>
                 <span>Manage Classes</span>
               </a>
             </li>
+          {% if status == 'Professor' %}
             <li class="treeview">
-              <a href="profileMessages.html">
-                <i class="fa fa-envelope"></i>
-                <span>Messages</span>
-              </a>
-            </li>
-            <!--<li>
-              <a href="pages/mailbox/mailbox.html">
-                <i class="fa fa-envelope"></i> <span>Other2</span>
-              </a>
-            </li>
-            <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Other3</span></a></li>-->
+                    <a href="../profile/addclass">
+                        <i class="fa fa-star-half-o"></i>
+                        <span>Create a Class</span>
+                    </a>
+                    </li>
+            <li class="treeview">
+                    <a href="../profile/deleteclass">
+                        <i class="fa fa-eraser"></i>
+                        <span>Delete a Class</span>
+                    </a>
+                    </li>
+            {% endif %}
           </ul>
         </section>
         <!-- /.sidebar -->
