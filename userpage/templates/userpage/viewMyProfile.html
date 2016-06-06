@@ -100,12 +100,20 @@
                 <span>Manage Classes</span>
               </a>
             </li>
-<!--<li class="treeview">
-                    <a href="profileMessages.html">
-                        <i class="fa fa-envelope"></i>
-                        <span>Messages</span>
+            {% if status == 'Professor' %}
+			<li class="treeview">
+                    <a href="addclass">
+                        <i class="fa fa-star-half-o"></i>
+                        <span>Create a Class</span>
                     </a>
-                    </li>-->
+                    </li>
+            <li class="treeview">
+                   <a href="deleteclass">
+                        <i class="fa fa-eraser"></i>
+                        <span>Delete a Class</span>
+                    </a>
+                    </li>
+            {% endif %}
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -322,10 +330,5 @@
       <!-- AdminLTE App -->
       <script src="{%static 'AdminLTE/dist/js/app.min.js'%}"></script>
       <script src="{%static 'js/profileScripts.js'%}"></script>
-<<<<<<< HEAD
-=======
-      <!--<script src="{%static 'js/controllers.js'%}"></script> -->
->>>>>>> 4c1d95dc2e7b8457201dbb610fca62b367acc53b
-
    </body>
 </html>
