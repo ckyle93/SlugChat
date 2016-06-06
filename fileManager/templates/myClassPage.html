@@ -289,7 +289,7 @@
                                              {{ form.non_field_errors }}
                                              </p>
                                              <div>
-                                             <input type="submit" value="Send">
+                                             <input type="submit" value="Send File">
                                              </div>
                                              </form>
 
@@ -301,7 +301,7 @@
                                              		New Comment
 													<form method="POST" class="post-form">{% csrf_token %}
 													{{commentForm}}
-													<button type="submit" class="save btn btn-default">Submit</button>
+													<input type="submit" value="Comment">
 													</form>
     		                                        {% for comment in file.comment_set.all %}
 												 	    <!--print comment text-->

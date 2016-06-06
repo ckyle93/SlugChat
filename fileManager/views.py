@@ -3,17 +3,18 @@ from fileManager.models import FileDB
 from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .forms import FileForm
-from .models import file_dir, FileDB
+from .forms import FileForm, CommentForm
+from .models import file_dir, FileDB, Comment
 from home.models import Course
 from slugchat.functions import logged_in
 from slugchat.settings import MEDIA_ROOT, MEDIA_URL
 
-from commenting.forms import CommentForm
 from datetime import datetime
 
 def upload_file(request, className):
-	if request.method == 'POST':
+	print('upload!!!')
+	print(request.POST)
+	if request.method == 'POST' and 'fileName' in request.POST:
 		form = FileForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
@@ -21,10 +22,10 @@ def upload_file(request, className):
 		form = FileForm(initial={'className':className})
 	return {'dl_form': form}
 
-def download_file(className, user):
+def download_file(request, className, user):
 	files_to_serve = FileDB.objects.filter(className=className)
 	print(files_to_serve)
-	files = [(MEDIA_URL + x.fileObj.name, x.fileName, x.fileObj, make_comment(user, x)) for x in files_to_serve]
+	files = [(MEDIA_URL + x.fileObj.name, x.fileName, x, make_comment(request, user, x)) for x in files_to_serve]
 	return {'filelist': files}
 
 def get_course_context(className):
@@ -35,10 +36,14 @@ def get_course_context(className):
 	else:
 		return {}
 
-def make_comment(user, file):
-	if request.method == 'POST':
+def make_comment(request, user, file):
+	print('comment')
+	print(request.POST)
+	if request.method == 'POST' and 'comment' in request.POST:
+		print('comment post')
 		form = CommentForm(request.POST)
 		if form.is_valid():
+			print('comment save')
 			comment = form.save(commit=False)
 			comment.file = file
 			comment.user = user
@@ -56,7 +61,7 @@ def generate(request):
 		context = {'currentclass':className, 'firstname':user.firstName}
 		if user.get_status() == 'Professor':
 			context.update(upload_file(request, className))
-		context.update(download_file(className, user))
+		context.update(download_file(request, className, user))
 		context.update(get_course_context(className))
 		return render(request, 'myClassPage.html', context)
 	else:
