@@ -58,10 +58,8 @@ class Course(models.Model):
         title = models.CharField(max_length=50)
         activeQuiz = models.BooleanField(default=False)
 
-
-
-    def __str__(self):
-        return self.title
+        def __str__(self):
+            return self.title
 
 
 class Roster(models.Model):

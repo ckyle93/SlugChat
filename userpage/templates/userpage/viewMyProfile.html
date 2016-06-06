@@ -100,6 +100,22 @@
                 <span>Manage Classes</span>
               </a>
             </li>
+            {% if status == 'Student' %}
+            <li class="treeview">
+              <a href="/profile/enroll">
+                <i class="fa fa-dashboard"></i>
+                <span>Enroll in Classes</span>
+              </a>
+            </li>
+            {% endif %}
+            {% if status == 'Professor' %}
+            <li class="treeview">
+            <a href="/profile/addclass">
+              <i class="fa fa-dashboard"></i>
+              <span>Add a class</span>
+            </a>
+            </li>
+            {% endif %}
 <!--<li class="treeview">
                     <a href="profileMessages.html">
                         <i class="fa fa-envelope"></i>
@@ -281,7 +297,7 @@
                                 </div>
 
                                 </div>
-                                
+
                       </div>
 
                     -->

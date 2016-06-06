@@ -209,12 +209,13 @@
                       													</form>
                                                 <ul>
     		                                        {% for comment in file.comment_set.all %}
-												 	    <!--print comment text-->
-												 	    <li>{{ comment.comment }} </br>
-												 	    <i>By: {{comment.user.firstName}} {{comment.user.lastName}} on: {{ comment.pub_date }}</i></li>
-													{% endfor %}
-                        </ul>
-                        <br>
+                    												 	    <!--print comment text-->
+                    												 	    <li>{{ comment.comment }} </br>
+                    												 	        <i>By: {{comment.user.firstName}} {{comment.user.lastName}} on: {{ comment.pub_date }}</i>
+                                                  </li>
+													                      {% endfor %}
+                                              </ul>
+                                              <br>
                                              {% endfor %}
 
                                              </ul>
@@ -249,10 +250,7 @@
                                                  {{time}}
                                                </p>
                                              </div>
-                                               <div class="col-sm-6">
-                                                 <strong><i class="fa fa-file-text-o margin-r-5"></i>Syllabas:</strong>
-                                                 <p class="ng-binding"><a href="#">PDF</a></p>
-                                               </div>
+                                               
                                              </div>
                                              <div class="row">
                                                <div class="col-sm-12">
@@ -267,12 +265,23 @@
                                         </div>
                                         <div class="row">
                                           <div class="col-sm-12">
-                                            <h2>Instructor: {{professor}}</h2>
+                                            <h2>Instructor: {{professor.firstName}} {{professor.lastName}}</h2>
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col-sm-4">
-                                            <img ng-src="{{userinfo.profile}}" class=" profile-user-img img-responsive img-circle" id = "profilePicture">
+                                            <img src="{{professor.profile_pic}}" class=" profile-user-img img-responsive img-circle" id = "profilePicture">
+                                          </div>
+                                          <div class="col-sm-4">
+                                            <div class="row">
+                                              <div class="col-sm-12">
+                                                  <hr>
+                                                  <strong><i class="fa fa-envelope-o margin-r-5"></i>Contact:</strong>
+                                                  <p class="text-muted ng-binding">
+                                                    {{professor.email}}
+                                                  </p>
+                                              </div>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>

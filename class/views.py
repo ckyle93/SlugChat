@@ -40,9 +40,10 @@ def class_chat(request):
 
     context = {'firstname': user.firstName, 'status': status,
                'quiz_list': quiz_list}
-    return render(request, 'class/quiz_test.html', context)
+
+    #return render(request, 'class/quiz_test.html', context)
     #return render(request, 'class/mainAppPageStudent.html', context)
-    #return render(request, 'class/mainAppPageInstructor.html', context)
+    return render(request, 'class/mainAppPageInstructor.html', context)
 
 
 @csrf_exempt
