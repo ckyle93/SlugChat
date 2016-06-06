@@ -140,8 +140,10 @@ def buildprofile(request):
             return HttpResponseRedirect('/profile/')
     else:
         user_form = UserForm(instance=user)
+
+    status = user.get_status()
     #return render(request, 'userpage/buildprofile.html', {'user_form': user_form})
-    return render(request, 'userpage/editprofile.html', {'user_form': user_form})
+    return render(request, 'userpage/editprofile.html', {'status': status, 'user_form': user_form})
 
 
 
@@ -170,8 +172,9 @@ def addclass(request):
     else:
         course_form = CourseForm()
 
+    status = get_status()
     return render(request, 'userpage/addclass.html',
-                  {'course_form': course_form})
+            {'status': status, 'course_form': course_form})
 
 
 # Only professors can delete a class.
@@ -201,8 +204,9 @@ def deleteclass(request):
     else:
         roster_form = RosterForm()
 
+    status = get_status()
     return render(request, 'userpage/deleteclass.html',
-                  {'roster_form': roster_form})
+            {'status': status, 'roster_form': roster_form})
 
 
 # Users can enroll and drop classes via this page
@@ -232,5 +236,6 @@ def manage_classes(request):
     else:
         roster_form = RosterForm()
 
+    status = user.get_status()
     return render(request, 'userpage/enroll.html',
-                  {'roster_form': roster_form})
+            {'status': status, 'roster_form': roster_form})
