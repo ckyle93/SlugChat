@@ -7,7 +7,7 @@ from home.models import User, Roster, Course, Quiz, QuizChoices
 from userpage.forms import UserForm, RosterForm, CourseForm, QuizForm
 from userpage.forms import QuizChoicesForm
 
-from slugchat.functions import logged_in, QuizObj, verify_user
+from slugchat.functions import logged_in, verify_user
 
 
 # This is the function that takes the info from google sign in, then adds the
@@ -257,22 +257,13 @@ def viewquizzes(request):
 
     quizzes = user.quiz_set.all().all()
 
-    quiz_list = []
-    for quiz in quizzes:
-        new_quiz = QuizObj()
-        new_quiz.question_text = quiz.question
-        new_quiz.id = quiz.id
-        choices = quiz.quizchoices_set.all().all()
-        for choice in choices:
-            new_quiz.choices.append(choice.choice)
-        quiz_list.append(new_quiz)
     if request.method == 'POST':
         quiz_id = request.POST['id']
         Quiz.objects.get(id=quiz_id).delete()
         return HttpResponseRedirect('/profile/viewquizzes')
     else:
         return render(request, 'userpage/viewquizzes.html',
-                      {'quiz_list': quiz_list})
+                      {'quiz_list': quizzes})
 
 
 def makequizzes(request):

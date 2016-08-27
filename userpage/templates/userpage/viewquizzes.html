@@ -1,8 +1,7 @@
-
 {% for quiz in quiz_list %}
 <div>
-<b> Quiz Question Text </b>
-{{ quiz.question_text }}
+<b> Quiz Question </b>
+<p> {{ quiz.question }} </p>
 <form method="post">
     {% csrf_token %}
     <input type="hidden" value="{{ quiz.id }}" name="id" />
@@ -11,8 +10,12 @@
 </div>
 <div>
 <b> Quiz Options </b>
-{% for choice in quiz.choices %}
-<ol> {{choice}} </ol>
+{% for choice in quiz.quizchoices_set.all %}
+{% if choice.correct == True %}
+<ol> <b> Correct: </b> {{choice.choice}} </ol>
+{% else %}
+<ol> {{choice.choice}} </ol>
+{% endif %}
 {% endfor %}
 {% endfor %}
 </div>
