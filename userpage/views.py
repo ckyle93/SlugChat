@@ -103,7 +103,7 @@ def profile(request):
                'classes': rosters.all(),
                'GOOGLE_KEY': GOOGLE_KEY}
 
-    #return render(request, 'userpage/profile.html', context)
+    # return render(request, 'userpage/profile.html', context)
     return render(request, 'userpage/viewMyProfile.html', context)
 
 
@@ -142,9 +142,10 @@ def buildprofile(request):
             return HttpResponseRedirect('/profile/')
     else:
         user_form = UserForm(instance=user)
-    #return render(request, 'userpage/buildprofile.html', {'user_form': user_form})
-    return render(request, 'userpage/editprofile.html', {'user_form': user_form})
-
+    # return render(request, 'userpage/buildprofile.html',
+    # {'user_form': user_form})
+    return render(request, 'userpage/editprofile.html',
+                  {'user_form': user_form})
 
 
 # Only professors can add a class.
@@ -184,7 +185,7 @@ def deleteclass(request):
     if user is None:
         return HttpResponseRedirect('/')
 
-    #if user.get_status() is not 'Professor':
+    # if user.get_status() is not 'Professor':
     #    return HttpResponse(
     #            'Sorry, only professors can add classes.', status=401)
     if user.get_status() != 'Professor':
@@ -279,11 +280,17 @@ def makequizzes(request):
         return HttpResponse(
                 'Sorry, only professors can view.', status=401)
 
+    # Check if there are any classes to make a quiz for. If there aren't any
+    # classes, there is no reason to make a quiz.
+    if not Course.objects.filter().exists():
+        return HttpResponse('Error: You must create at least one class before\
+                             you can create a quiz', status=400)
+
     # If the we are updating a quizz's choices, the urls is
     # /profile/makequizzes/?quiz_id=pk, where pk is the primary key
     # of the Quiz object we want to add choices to.
     key = request.GET.get('quiz_id', '')
-    if key is not '':
+    if key != '':
         quiz = get_object_or_404(Quiz, pk=key)
         new_choice = QuizChoices(quiz=quiz)
         previous_choices = quiz.quizchoices_set.all().all()
@@ -300,16 +307,16 @@ def makequizzes(request):
         return render(request, 'userpage/addchoices.html',
                       {'quizchoices_form': quizchoices_form,
                        'previous_choices': previous_choices})
-
-    quiz = Quiz(professor=user)
-    if request.method == 'POST':
-        quiz_form = QuizForm(request.POST, instance=quiz)
-        if quiz_form.is_valid():
-            quiz_form.save()
-        return HttpResponseRedirect('/profile/makequizzes/?quiz_id=' +
-                                    str(quiz.id))
     else:
-        quiz_form = QuizForm()
+        quiz = Quiz(professor=user)
+        if request.method == 'POST':
+            quiz_form = QuizForm(request.POST, instance=quiz)
+            if quiz_form.is_valid():
+                quiz_form.save()
+            return HttpResponseRedirect('/profile/makequizzes/?quiz_id=' +
+                                        str(quiz.id))
+        else:
+            quiz_form = QuizForm()
 
     return render(request, 'userpage/makequizzes.html',
                   {'quiz_form': quiz_form})
