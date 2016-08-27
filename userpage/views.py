@@ -248,7 +248,12 @@ def viewquizzes(request):
 
     if user.get_status() is not 'Professor':
         return HttpResponse(
-                'Sorry, only professors can view.', status=401)
+                'Sorry, only professors can view quizzes.', status=401)
+
+    # If the user hasn't made any quizzes yet, error and inform the user
+    if not user.quiz_set.filter().exists():
+        return HttpResponse(
+                'Error: you haven\'t created any quizzes yet', status=400)
 
     quizzes = user.quiz_set.all().all()
 

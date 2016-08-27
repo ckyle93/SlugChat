@@ -4,7 +4,11 @@
     <br>
     <b> Current Choices </b>
     {% for choice in previous_choices %}
+    {% if choice.correct == True %}
+    <ol> <b> Correct: </b> {{choice.choice}} </ol>
+    {% else %}
     <ol> {{choice.choice}} </ol>
+    {% endif %}
     {% endfor %}
     <b> Add a choice </b>
     {{ quizchoices_form }}
