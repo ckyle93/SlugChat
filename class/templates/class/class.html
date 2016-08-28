@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <div>
-    {% if  status() is 'Student' %}
+    {% if  user.get_status() is 'Student' %}
     <div id="quiz"> </div>
     {% endif %}
 </div>

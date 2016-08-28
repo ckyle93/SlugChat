@@ -1,8 +1,10 @@
 <b> Quiz </b>
-{{ quiz.question_text }}
-{% for choice in quiz.choices %}
-    {{ choice.choice }}
+<p> <b> {{ quiz.question }} </b> </p>
+{% for choice in quiz.quizchoices_set.all %}
+<ol>
+{{ choice.choice }}
     <input type="button" value="Pick" name="id"
                                       onclick="checkAnswer({{ quiz.id }},
                                       {{ choice.id }});" />
+</ol>
 {% endfor %}
