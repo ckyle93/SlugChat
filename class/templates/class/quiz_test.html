@@ -1,10 +1,46 @@
+<div id="quiz"> </div>
+{% if status == 'Student' %}
+<script>
+
+function checkAnswer(quizID,choice) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById("quiz").innerHTML =
+            xhr.responseText;
+        }
+    };
+    xhr.open('POST', 'http://localhost:8000/fileManager/check_answer/');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send("quizID="+quizID+"&choice="+choice);
+}
+
+
+window.setInterval(function(){
+     checkQuiz();
+ }, 5000);
+ // Query the server for whether a quiz is being given. If so, return the
+ // html page ajax_quiz.html
+ function checkQuiz() {
+     var xhr = new XMLHttpRequest();
+     xhr.onreadystatechange = function() {
+         if (xhr.readyState == 4 && xhr.status == 200) {
+             document.getElementById("quiz").innerHTML =
+             xhr.responseText;
+         }
+     };
+     xhr.open('POST', 'http://localhost:8000/fileManager/check_quiz/');
+     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+     xhr.send("class="+"{{request.GET.class}}&quiz_status=active");
+}
+</script>
+{% elif status == 'Professor' %}
 {% for quiz in quiz_list %}
-<div id="quiz">
 <b> Quiz Question Text </b>
 {{ quiz.question }}
 <input type="button" value="Pick" name="quiz_choice" onclick="pickQuiz({{ quiz.pk }});" />
 {% endfor %}
-</div>
+{% endif %}
 <script>
 
 function pickQuiz(quizID) {
@@ -17,7 +53,7 @@ function pickQuiz(quizID) {
     };
     xhr.open('POST', 'http://localhost:8000/fileManager/pick_quiz/');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send("quizID="+quizID+"&class="+"{{request.GET.class}}");
+    xhr.send("quizID="+quizID+"&class="+"{{request.GET.class}}&quiz_status=active");
 }
 
 function checkAnswer(quizID,choice) {
@@ -33,22 +69,5 @@ function checkAnswer(quizID,choice) {
     xhr.send("quizID="+quizID+"&choice="+choice);
 }
 
-//window.setInterval(function(){
-//     checkQuiz();
-// }, 5000);
-// // Query the server for whether a quiz is being given. If so, return the
-// // html page ajax_quiz.html
-// function checkQuiz() {
-//     var xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = function() {
-//         if (xhr.readyState == 4 && xhr.status == 200) {
-//             document.getElementById("quiz").innerHTML =
-//             xhr.responseText;
-//         }
-//     };
-//     xhr.open('POST', 'http://localhost:8000/fileManager/check_quiz/');
-//     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//     xhr.send();
-//}
 </script>
 

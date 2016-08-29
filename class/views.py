@@ -26,21 +26,24 @@ def class_chat(request):
     status = user.get_status()
     if status == 'Professor':
         quizzes = user.quiz_set.all().all()
-
-    context = {'firstname': user.firstName, 'status': status,
-               'quiz_list': quizzes}
+        context = {'firstname': user.firstName, 'status': status,
+                'quiz_list': quizzes}
+    else:
+        context = {'firstname': user.firstName, 'status': status}
     return render(request, 'class/quiz_test.html', context)
 
 
 @csrf_exempt
 def pick_quiz(request):
     quizID = request.POST['quizID']
-    # className = request.POST['class']
+    class_title = request.POST['class']
+    quiz_status = request.POST['quiz_status']
 
+    course = Course.objects.get(title=class_title)
+    course.activeQuiz = True
+    course.quizID = quizID
+    course.save()
     quiz = Quiz.objects.get(id=quizID)
-    # We may not actually need the class name. TBD
-    # Also it doesn't seem to work correctly right now.
-    # course = Course.objects.get(title=className)
     context = {'quiz': quiz}
 
     return render(request, 'class/show_quiz.html', context)
@@ -71,7 +74,7 @@ def quiz_choices(request):
         return HttpResponseRedirect('/')
 
     status = user.get_status()
-    if status == 'professor':
+    if status == 'Professor':
         quizzes = user.quiz_set.all().all()
         quiz_list = []
         for quiz in quizzes:
@@ -92,53 +95,33 @@ def quiz_choices(request):
 
 @csrf_exempt
 def check_quiz(request):
-    return HttpResponse("hello", 400)
-#     user = logged_in(request)
-# 
-#     if user is None:
-#         return HttpResponseRedirect('/')
-# 
-#     # currentclass = request.GET.get('class', '')
-# 
-#     if currentclass == '':
-#         return HttpResponseRedirect('/')
-# 
-#     if not Course.objects.filter(title=currentclass).exists():
-#         return HttpResponseRedirect('/')
-# 
-#     if not Course.objects.get(title=currentclass, activeQuiz=True):
-#         return HttpResponse('')
-# 
-#     course = Course.objects.get(title=currentclass)
-#     quizID = course.quizID
-# 
-#     quiz = Quiz.objects.get(id=quizID)
-# 
-#     new_quiz = QuizObj()
-#     new_quiz.question_text = quiz.question
-#     new_quiz.id = quiz.id
-#     choices = quiz.quizchoices_set.all().all()
-#     for choice in choices:
-#         new_quiz.choices.append(choice)
-#     context = {'quiz': new_quiz}
-#     return render(request, 'class/show_quiz.html', context)
+    user = logged_in(request)
+
+    class_title = request.POST['class']
+    quiz_status = request.POST['quiz_status']
+
+    course = Course.objects.get(title=class_title)
+    quizID = course.quizID
+
+    quiz = Quiz.objects.get(id=quizID)
+
+    context = {'quiz': quiz}
+    return render(request, 'class/show_quiz.html', context)
 
 
+def give_quiz(request):
+   user = logged_in(request)
 
-# def give_quiz(request):
-#    user = logged_in(request)
-#
-#    if user is None:
-#        return HttpResponseRedirect('/')
-#
-#    course_title = request.POST['title']
-#
-#    # Check if there is a quiz being given
-#    if Course.objects.filter(title=course_title, activeQuiz=True).exists():
-#        return render(request, 'class/ajax_quiz.html', context)
-#    status = user.get_status();
-#
-#    context = {'firstname': user.firstName,
-#                'currentclass': request.GET.get('class', '')}
-#    #return render(request, 'class/class_chat.html', context)
-#    return render(request, 'class/mainAppPage.html', context)
+   if user is None:
+       return HttpResponseRedirect('/')
+
+   course_title = request.POST['title']
+
+   # Check if there is a quiz being given
+   if Course.objects.filter(title=course_title, activeQuiz=True).exists():
+       return render(request, 'class/ajax_quiz.html', context)
+   status = user.get_status();
+
+   context = {'firstname': user.firstName,
+               'currentclass': request.GET.get('class', '')}
+   return render(request, 'class/mainAppPage.html', context)
